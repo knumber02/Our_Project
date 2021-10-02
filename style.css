@@ -1,0 +1,93 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
+
+
+html {
+    font-size: 100%;
+}
+body {
+    color: rgb(117, 117, 117);
+   
+}
+img {
+    max-width: 100%;
+}
+button {
+    appearance: none;
+    outline: 0;
+    border: 0;
+    padding: 10px 15px;
+    color: #53e3a6;
+    border-radius: 3px;
+    width: 150px;
+    cursor: pointer;
+    font-size: 18px;
+    transition-duration: 0.25s;
+    
+}
+button:hover {
+    background-color: gray;
+}
+ul {
+    list-style: none;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    max-width: 600px;
+    margin: 0 auto;  
+    background-color: rgba(255, 240, 153, 0.5);
+    padding-bottom: 300px;
+}
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+.wrapper {
+    max-width: 200px;
+    margin: 0 auto;
+}
+.title {
+    font-family: 'Kosugi Maru', sans-serif;
+    font-size: 5rem;
+    margin-top: 10px;
+    padding-top: 40px;
+    padding: 50px;
+    padding-bottom: 30px;
+}
+.site-header
+
+.profile_img{
+    display: block;
+    width: 160px;
+    height: 160px;
+    border-radius:50%;
+    margin: 0 auto;
+    
+}
+
+.register{
+    font-size: 12px;
+    color: rgb(117, 117, 117);
+    padding-left: 100px;
+}
+.register:hover {
+    color: blue;
+}
+#text {
+    width: 200px;
+    height: 30px;
+    margin-bottom: 20px;
+}
+#password {
+    width: 200px;
+    height: 30px;
+    margin-bottom: 40px;
+}
+#submit{
+    width: 210px;
+    height: 40px;
+}
