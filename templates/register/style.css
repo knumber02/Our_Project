@@ -12,6 +12,7 @@ body {
 img {
     max-width: 100%;
 }
+
 button {
     appearance: none;
     outline: 0;
@@ -23,7 +24,6 @@ button {
     cursor: pointer;
     font-size: 18px;
     transition-duration: 0.25s;
-    
 }
 button:hover {
     background-color: gray;
@@ -84,9 +84,14 @@ form {
 #password {
     width: 200px;
     height: 30px;
+    margin-bottom: 20px;
+}
+#mailaddress {
+    width: 200px;
+    height: 30px;
     margin-bottom: 40px;
 }
-#submit{
+#submit {
     width: 210px;
     height: 40px;
 }
