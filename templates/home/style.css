@@ -41,9 +41,13 @@
         opacity: 1;
         transform: translateY(0); } }
 
-.nav_item{
+
+.nav_item a {
+    text-decoration: none;
+    list-style: none;
     display: block;
     padding: 1.5rem 1rem;
+    float: left;
 }
 
 .nav_toggle {
