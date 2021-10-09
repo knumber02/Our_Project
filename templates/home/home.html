@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Home</title>
+ 
 </head>
 <body>
     <header class="site-header">
@@ -15,19 +16,76 @@
                 menu
                 </button>
                 <ul class="nav_wrapper">
-                    <li class="nav_item"><a href="#">Profile</a></li>
+                    <div class="icon_container">
+                        <a href="../list/list.html" target="blank">
+                            <img src="../../static/people.png" class="nav_item" alt="友達リスト"/>
+                        </a>
+                        <p　id="list_link">友達リスト</p>
+                    </div>
+
+                    <div class="icon_container">
+                        <a href="../mypage/mypage.html" target="blank">
+                            <img src="../../static/user.png" class="nav_item"　alt="プロフィール"/>
+                        </a>
+                        <p id="profile_link">マイプロフィール</p>
+                    </div>
                 </ul>
+                <!--
                 <form action="サ" method="get">
                     <input type="search" name="search" placeholder="キーワードを入力">
                     <input type="submit" name="submit" value="検索">
-                </form>
+                </form>-->
             </nav>
         </div>
     </header>
     <main>
-        <div class="container">
-            <div class="group">グループ名</div>
-            <div class="schedule">スケジュール</div>
+        <div class="whole_container">
+            <div class="group">
+                <div class="group_title">グループ名</div>
+                <select name="group">
+                    <option value="">選択してください</option>
+                    <option value="group1">グループ1</option>
+                    <option value="group2">グループ2</option>
+                </select>
+                <div class="group_member">
+                    <a href="">メンバー1</a>
+                    <a href="">メンバー2</a>
+                    <a href="">メンバー3</a>
+                    <a href="">メンバ-4</a>
+                    <a href="">メンバー5</a>
+                </div>
+                <div class="selected_date">日付を指定</div>
+                    <input type="date" name="selected_date">
+            </div>
+
+
+            <div class="schedule">
+                <div class="schedule_title">スケジュール</div>
+                <div class="memo">予定</div>
+                <ul>
+                    <li>日時：</li>
+                    <input type=”text” name=”” placeholder=”O月X日△時” size=”” maxlength=””>
+                    <li>場所：</li>
+                    <input type=”text” name=”” placeholder=”新宿駅” size=”” maxlength=””>
+                    <li>イベント：</li>
+                    <input type=”text” name=”” placeholder=”カラオケ” size=”” maxlength=””>
+                    <li>参加：</li>
+                    <button type="button">O</button>
+                    <button type="button">X</button>
+                    
+                </ul>
+                <div class="paticipants">参加者リスト</div>
+                <!-- 全体 -->
+                <div>
+                    <!-- 左 -->
+                    <div><p>O</p></div>
+                    <div></div>
+                    <!-- 右 -->
+                    <div><p>X</p></div>
+                    <div></div>
+                </div>
+            </div>
+            
         </div>
     </main>
 </body>
