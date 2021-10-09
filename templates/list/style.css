@@ -1,0 +1,50 @@
+/*#child1 {
+    background-color: rgb(249, 255, 166);
+}
+#child2 {
+    background-color: rgb(184, 245, 184);
+}
+
+@media (min-width: 600px) {
+    #parent {
+      display: flex;
+    }
+    #child1 {
+      flex-grow: 1;
+    }
+    #child2 {
+      flex-grow: 1;
+    }
+  }
+ul {
+    color: #668ad8;
+    border: dashed 2px #668ad8;
+    background: #f1f8ff; 
+    padding: 0.5em 0.5em 0.5em 2em;
+  }
+  
+ul li {
+    line-height: 1.5;
+    padding: 0.5em 0;
+  }
+*/
+
+.column {
+    height: 100vh;
+    width: 100%;
+    text-align:center;
+}
+.group {
+    background-color: rgb(249, 255, 166);
+    background-size: cover;
+}
+.friends {
+    background-color: rgb(184, 245, 184);
+    background-size: cover;
+}
+
+@media all and (min-width: 500px) {
+    .wrapper {
+      display: flex;
+    }
+}
