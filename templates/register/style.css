@@ -41,6 +41,7 @@ form {
     margin: 0 auto;  
     background-color: rgba(255, 240, 153, 0.5);
     padding-bottom: 300px;
+    border: dashed 2px gray;
 }
 .container {
     max-width: 400px;

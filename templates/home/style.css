@@ -1,13 +1,26 @@
 .title{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 40px;
+    text-decoration: none;
+    padding-left: 20px;
 }
 
 .site-header{
     position: relative;
     background-color: #def7ff; 
 }
-
+.container {
+    display: flex;
+    height: 70vh;
+}
+.group {
+    background-color: rgb(163, 154, 154);
+    width: 20%;
+}
+.schedule {
+    background-color: yellowgreen;
+    width: 80%;
+}
 .site-header_wrapper{
     padding-top: 1rem;
     padding-bottom: 1rem; }
@@ -44,6 +57,7 @@
 .nav_item{
     display: block;
     padding: 1.5rem 1rem;
+    text-decoration: none;
 }
 
 .nav_toggle {
