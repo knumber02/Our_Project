@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -12,20 +13,18 @@
         <div class="wrapper site-header_wrapper">
             <a href="#" class="title">今日、ひま？</a>
             <nav class="nav">
-                <button class="nav_toggle" aria-expanded="false" type="button">
-                menu
-                </button>
-                <ul class="nav_wrapper">
+              
+                 <ul class="nav_wrapper">
                     <div class="icon_container">
-                        <a href="../list/list.html" target="blank">
-                            <img src="../../static/people.png" class="nav_item" alt="友達リスト"/>
+                        <a href="../list/list.html" target="blank" class="nav_item">
+                            <img src="../../static/people.png"  alt="友達リスト"/>
                         </a>
                         <p　id="list_link">友達リスト</p>
                     </div>
 
                     <div class="icon_container">
-                        <a href="../mypage/mypage.html" target="blank">
-                            <img src="../../static/user.png" class="nav_item"　alt="プロフィール"/>
+                        <a href="../mypage/mypage.html" target="blank" class="nav_item">
+                            <img src="../../static/user.png"　alt="プロフィール"/>
                         </a>
                         <p id="profile_link">マイプロフィール</p>
                     </div>
@@ -40,53 +39,130 @@
     </header>
     <main>
         <div class="whole_container">
-            <div class="group">
-                <div class="group_title">グループ名</div>
-                <select name="group">
-                    <option value="">選択してください</option>
-                    <option value="group1">グループ1</option>
-                    <option value="group2">グループ2</option>
-                </select>
+           <div class="left_container">
+             <div class="group">
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                      選択してください
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li><a class="dropdown-item" href="#">グループ1</a></li>
+                      <li><a class="dropdown-item" href="#">グループ2</a></li>
+                      <li><a class="dropdown-item" href="#">グループ3</a></li>
+                    </ul>
+                </div>
+                  
                 <div class="group_member">
                     <a href="">メンバー1</a>
                     <a href="">メンバー2</a>
                     <a href="">メンバー3</a>
                     <a href="">メンバ-4</a>
                     <a href="">メンバー5</a>
-                </div>
+                </div><br>
                 <div class="selected_date">日付を指定</div>
                     <input type="date" name="selected_date">
+             </div><br>
+             <div class="table">
+             <table class="table table-bordered border-info">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 16%">メンバー</th>
+                    <th scope="col" style="width: 21%">0-6</th>
+                    <th scope="col" style="width: 21%">6-12</th>
+                    <th scope="col" style="width: 21%">12-18</th>
+                    <th scope="col" style="width: 21%">18-24</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td class="table-secondary"> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td class="table-secondary"> </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td> </td>
+                    <td class="table-secondary"> </td>
+                    <td> </td>
+                    <td> </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td class="table-secondary"> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
             </div>
-
-
-            <div class="schedule">
-                <div class="schedule_title">スケジュール</div>
+            <div class="right_container">
+             <div class="schedule">
+                <div class="add_schedule">
                 <div class="memo">予定</div>
+                <button type="button" class="btn btn-outline-primary">予定の追加</button>
+                <button type="button" class="btn btn-outline-secondary">予定の削除</button></div>
                 <ul>
-                    <li>日時：</li>
-                    <input type=”text” name=”” placeholder=”O月X日△時” size=”” maxlength=””>
-                    <li>場所：</li>
-                    <input type=”text” name=”” placeholder=”新宿駅” size=”” maxlength=””>
-                    <li>イベント：</li>
-                    <input type=”text” name=”” placeholder=”カラオケ” size=”” maxlength=””>
-                    <li>参加：</li>
-                    <button type="button">O</button>
-                    <button type="button">X</button>
+                    
+                      date
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">日時</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"　placeholder=”カラオケ”>
+                      </div>
+                      """"zgroup mb-3"place
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">場所</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"　placeholder=”カラオケ”>
+                      </div>
+event
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">イベント</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"　placeholder=”カラオケ”>
+                      </div>
+ 
+                      <li>参加：</li>
+
+                    <button type="button" class="btn btn-info">O</button>
+                    <button type="button" class="btn btn-danger">X</button>
+
                     
                 </ul>
                 <div class="paticipants">参加者リスト</div>
                 <!-- 全体 -->
                 <div>
-                    <!-- 左 -->
-                    <div><p>O</p></div>
-                    <div></div>
-                    <!-- 右 -->
-                    <div><p>X</p></div>
-                    <div></div>
+                    <ul>
+                        <li>メンバー1</li>
+                        <li>メンバー2</li>
+                        <li>メンバー3</li>
+                    </ul>
                 </div>
             </div>
-            
+          </div>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
