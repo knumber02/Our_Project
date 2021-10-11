@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Mypage</title>
+    <title>MyPage</title>
 </head>
 <body>
     <header class="site-header">
@@ -25,20 +25,46 @@
     <main>
         <div class="container">
             <div class="picture">
-                <div><img src="../../static/people.png" alt="アイコン画像" width="200px" height="200px" title=""></div>
-                <div><button type="button">画像編集</button></div>
+                <img src="../../static/people.png" alt="アイコン画像" width="200px" height="200px" title="">
+                <form><input type="button" id="openBtn" value="画像編集"></form>
             </div>
+        　　　　
+            <div id="modal" class="modal">
+                <div class="modal_content">
+                    <input type="button" class="closeBtn" id="closeBtn" value="X">
+                    <h3 class="sentence">fileを選択してアイコン画像の変更をしてください。</h3>
+                    <div class="change_avatar">
+                        <input type="file" name="avatar" class="avatar">
+                        <input type="button" class=" changeBtn" id="closeBtn" value="変更">
+                    </div>
+                </div>
+            </div>
+
+            <script src="modal.js"></script>
+            
             <div class="user_info">
                 <div>
-                    <p>ユーザー名：</p>
-                    <p>メールアドレス：</p>
-                    <p>パスワード：</p>
+                    <ul>
+                        <li>
+                            <p>ユーザー名：</p>
+                            <input type="text">
+                        </li>
+                        <li>
+                        <p>メールアドレス：</p>
+                        <input type="text">
+                        </li>
+                        <li>
+                        <p>パスワード：</p>
+                        <input type="text">
+                        </li>
+                    </ul>
                 </div>
                 <div>
-                    <button type="button">ログアウト</button>
+                    <button type="button" class="btn btn-outline-dark">ログアウト</button>
                 </div>
             </div>
         </div>
     </main>
+
 </body>
 </html>

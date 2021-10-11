@@ -116,3 +116,51 @@ li {
 .user_info {
 margin-left: 20px;
 }
+
+.modal{
+    display: none;
+    display: none;
+    background: rgba(0,0,0,0.5);
+    /* モーダルウィンドウの位置固定 */
+    position: fixed;
+    /* 背景色を画面いっぱいにする */
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;  
+}
+
+.modal_content{
+    background: #fff;
+    height: 400px;
+    /* width: 500px; */
+    width: 400px;
+    /* モーダルウィンドウを画面真ん中に表示 */
+    margin: 170px auto;
+    position: relative;
+  }
+  
+.closeBtn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.sentence {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+}
+
+
+.avatar {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+.changeBtn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
