@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 li {
     list-style:none;
 }
 .title{
+    font-family: 'Kosugi Maru', sans-serif;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 70px;
     text-decoration: none;
     padding-left: 20px;
 }
@@ -80,12 +82,9 @@ li {
         transform: translateY(0); } }
 
 
-.nav_item a {
-    text-decoration: none;
-    list-style: none;
+.nav_item  {
     display: block;
     padding: 1.5rem 1rem;
-    text-decoration: none;
     cursor: pointer;
 }
 .nav_item > img {
@@ -95,7 +94,6 @@ li {
 }
 .nav_item:hover {
     opacity: 50%;
-    float: left;
 }
 
 .nav_toggle {
