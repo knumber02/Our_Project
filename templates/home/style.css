@@ -138,6 +138,7 @@ li {
 
 .add_schedule{
     display:flex;
+    margin-bottom: 15px; 
 }
 .memo {
     position: relative;
@@ -158,4 +159,10 @@ li {
     padding: 0.2em 0.5em;
     color: #454545;
     width:160px;
+}
+.nav-link{
+    background: #fd0000;
+}
+.tab-content{
+    background: #ffffff;
 }
