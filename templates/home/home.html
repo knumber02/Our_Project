@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Home</title>
- 
 </head>
 <body>
     <header class="site-header">
         <div class="wrapper site-header_wrapper">
             <a href="#" class="title">今日、ひま？</a>
-            <nav class="nav">
-              
+            <nav>
                  <ul class="nav_wrapper">
                     <div class="icon_container">
                         <a href="../list/list.html" target="blank" class="nav_item">
@@ -21,19 +19,13 @@
                         </a>
                         <p　id="list_link">友達リスト</p>
                     </div>
-
                     <div class="icon_container">
                         <a href="../mypage/mypage.html" target="blank" class="nav_item">
-                            <img src="../../static/user.png"　alt="プロフィール"/>
+                            <img src="../../static/user.png"　alt="プロフィール" id="profile_img">
                         </a>
                         <p id="profile_link">マイプロフィール</p>
                     </div>
                 </ul>
-                <!--
-                <form action="サ" method="get">
-                    <input type="search" name="search" placeholder="キーワードを入力">
-                    <input type="submit" name="submit" value="検索">
-                </form>-->
             </nav>
         </div>
     </header>
@@ -51,17 +43,16 @@
                       <li><a class="dropdown-item" href="#">グループ3</a></li>
                     </ul>
                 </div>
-                  
                 <div class="group_member">
-                    <a href="">メンバー1</a>
+                    <a href="../friends/friend.html" target="blank">メンバー1</a>
                     <a href="">メンバー2</a>
                     <a href="">メンバー3</a>
                     <a href="">メンバ-4</a>
                     <a href="">メンバー5</a>
-                </div><br>
+                </div>
                 <div class="selected_date">日付を指定</div>
                     <input type="date" name="selected_date">
-             </div><br>
+             </div>
              <div class="table">
              <table class="table table-bordered border-info">
                 <thead>
@@ -116,48 +107,52 @@
             <div class="right_container">
              <div class="schedule">
                 <div class="add_schedule">
-                <div class="memo">予定</div>
-                <button type="button" class="btn btn-outline-primary">予定の追加</button>
-                <button type="button" class="btn btn-outline-secondary">予定の削除</button></div>
-                <ul>
-                    
-                      date
+                
+                <div class="memo m-3">予定</div>
+                <button type="button" class="btn btn-outline-primary m-2">予定の追加</button>
+                <button type="button" class="btn btn-outline-secondary m-2">予定の削除</button></div>
                       <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">日時</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"　placeholder=”カラオケ”>
+                        <span class="input-group-text" id="basic-addon1">日時</span>
+                        <input type="text" class="form-control me-3" placeholder='"O月X日△時"' aria-label="date" aria-describedby="basic-addon1">
                       </div>
-                      """"zgroup mb-3"place
+                      
                       <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">場所</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"　placeholder=”カラオケ”>
+                        <span class="input-group-text" id="basic-addon1">場所</span>
+                        <input type="text" class="form-control me-3" placeholder='"渋谷"' aria-label="place" aria-describedby="basic-addon1">
                       </div>
-event
                       <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">イベント</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"　placeholder=”カラオケ”>
+                        <span class="input-group-text" id="basic-addon1">イベント</span>
+                        <input type="text" class="form-control me-3" placeholder='"カラオケ"' aria-label="event" aria-describedby="basic-addon1">
                       </div>
- 
                       <li>参加：</li>
-
-                    <button type="button" class="btn btn-info">O</button>
+                    <button type="button" class="btn btn-info m-3">O</button>
                     <button type="button" class="btn btn-danger">X</button>
-
-                    
-                </ul>
-                <div class="paticipants">参加者リスト</div>
-                <!-- 全体 -->
+                <div class="paticipants m-3">参加者リスト</div>
                 <div>
-                    <ul>
-                        <li>メンバー1</li>
-                        <li>メンバー2</li>
-                        <li>メンバー3</li>
+                  <ul class="nav nav-tabs m-3" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">O</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">X</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content m-3" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                      <ul>
+                          <li>メンバー1</li>
+                          <li>メンバー2</li>
+                          <li>メンバー3</li>
+                      </ul>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      <ul>
+                        <li>メンバー4</li>
+                        <li>メンバー5</li>
+                        <li>メンバー6</li>
                     </ul>
+                    </div>
+                  </div>
                 </div>
             </div>
           </div>

@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 li {
     list-style:none;
 }
 .title{
+    font-family: 'Kosugi Maru', sans-serif;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 70px;
     text-decoration: none;
     padding-left: 20px;
 }
@@ -11,6 +13,7 @@ li {
 .site-header{
     position: relative;
     background-color: #e9f7fc; 
+    border-bottom: solid 5px darkblue;
 }
 .icon_container {
     padding-right: 20px;
@@ -23,13 +26,14 @@ li {
     background-color: rgba(255, 240, 153, 0.5);
     width: 60%;
     padding-left: 20px;
+    padding-top: 10px;
 }
 .whole_container > .group > .dropdown {
     display:inline-flex
 }
 .group_member {
     display:flex;
-
+    margin-top: 10px;
 }
 .group_member > a {
     padding-right: 10px;
@@ -39,12 +43,14 @@ li {
 }
 .whole_container > .right_container {
     background-color: whitesmoke;
-    width: 40%;
+    width: 50%;
     padding-left: 20px;
 }
 .nav_wrapper{
     display: flex;
     margin-right: 0px;
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 .site-header_wrapper{
     padding-top: 1rem;
@@ -80,22 +86,24 @@ li {
         transform: translateY(0); } }
 
 
-.nav_item a {
-    text-decoration: none;
-    list-style: none;
+.nav_item  {
     display: block;
-    padding: 1.5rem 1rem;
-    text-decoration: none;
+    padding: 0;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 .nav_item > img {
-    width: 45px;
+    width: 40px;
     height: 40px;
-    padding-left: 5px;
 }
 .nav_item:hover {
     opacity: 50%;
-    float: left;
+}
+
+.nav_item > #profile_img {
+    padding-right: 0px;
+    width: 40px;
+    height: 40px;
 }
 
 .nav_toggle {
@@ -138,6 +146,7 @@ li {
 
 .add_schedule{
     display:flex;
+    margin-bottom: 15px; 
 }
 .memo {
     position: relative;
@@ -158,4 +167,22 @@ li {
     padding: 0.2em 0.5em;
     color: #454545;
     width:160px;
+}
+.nav-link{
+    background: #fd0000;
+}
+.tab-content{
+    background: #ffffff;
+}
+.selected_date {
+    margin-top: 10px;
+}
+#dropdownMenuButton:hover {
+    opacity: 75%;
+}
+#home-tab{
+    background-color:#4eb3f7;
+}
+#profile-tab{
+    background: #fd0000;
 }

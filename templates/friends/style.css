@@ -18,6 +18,7 @@ li {
     align-items: center;
     display: flex;
     width: 30%;
+    border: dotted 10px orange;
 }
 .add_friend {
     font-family: 'M PLUS Rounded 1c', sans-serif;
