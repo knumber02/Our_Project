@@ -20,14 +20,18 @@ li {
     width: 30%;
 }
 .add_friend {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     max-width: 200px;
     margin: 0 auto;
+    margin-top: 20px;
+    display: inline-flex;
 }
 .nav_wrapper{
     display: flex;
     margin-right: 0px;
 }
 .site-header_wrapper{
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     padding-top: 2rem;
     padding-bottom: 2rem; }
     @media (min-width: 600px) {
@@ -39,6 +43,7 @@ li {
         padding-bottom: 0; } 
 }
 .icon_container{
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     display: flex;
 }
 
@@ -120,9 +125,8 @@ li {
 .user_info {
     margin-left: 20px;
 }
-.add_friend {
-    margin-top: 20px;
-    display: inline-flex;
+.user_name {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 .form-group {
     margin-right: 20px;
