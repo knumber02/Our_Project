@@ -180,3 +180,9 @@ li {
 #dropdownMenuButton:hover {
     opacity: 75%;
 }
+#home-tab{
+    background-color:#4eb3f7;
+}
+#profile-tab{
+    background: #fd0000;
+}
