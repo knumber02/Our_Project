@@ -18,6 +18,7 @@ li {
     align-items: center;
     display: flex;
     width: 30%;
+    border: dotted 10px orange;
 }
 .add_friend {
     max-width: 200px;
