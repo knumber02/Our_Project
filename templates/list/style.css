@@ -29,6 +29,28 @@ ul li {
   }
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
+li {
+    list-style:none;
+}
+/* ナビゲーションのCSS */
+.title{
+    font-family: 'Kosugi Maru', sans-serif;
+    font-weight: bold;
+    font-size: 70px;
+    text-decoration: none;
+    padding-left: 20px;
+    color: gray;
+}
+
+.site-header{
+    position: relative;
+    background-color: #e9f7fc; 
+    border-bottom: solid 5px darkblue;
+}
+.icon_container {
+    padding-right: 20px;
+}
 .column {
     height: 100vh;
     width: 100%;
@@ -47,4 +69,115 @@ ul li {
     .wrapper {
       display: flex;
     }
+}
+.nav_wrapper{
+  display: flex;
+  margin-right: 0px;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.site-header_wrapper{
+  padding-top: 1rem;
+  padding-bottom: 1rem; }
+  @media (min-width: 600px) {
+    .site-header_wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0;
+      padding-bottom: 0; } 
+}
+
+@media (min-width: 600px) {
+  .nav__wrapper {
+    display: flex; } }
+
+@media (max-width: 599px) {
+  .nav__wrapper {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #d9f0f7;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; }
+    .nav__wrapper.active {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0); } }
+
+
+.nav_item  {
+  display: block;
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.nav_item > img {
+  width: 40px;
+  height: 40px;
+}
+.nav_item:hover {
+  opacity: 50%;
+}
+
+.nav_item > #profile_img {
+  padding-right: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+.nav_toggle {
+  display: none; }
+  @media (max-width: 599px) {
+    .nav_toggle {
+      display: block;
+      position: absolute;
+      right: 1rem;
+      top: 1rem; } }
+#profile_link {
+    margin-top: 0px;
+}
+/* ナビゲーションCSS終わり */
+.btn_container {
+  max-width: 350px;
+  margin: 20px auto;
+  border: dotted 10px orange;
+  background-color: rgba(255, 240, 153, 0.5);
+  padding: 10px 25px;
+}
+.page_title {
+  position: relative;
+  background: #4eb3f7;
+  box-shadow: 0px 0px 0px 5px #4eb3f7;
+  border: dashed 2px white;
+  padding: 0.2em 0.5em;
+  color: #454545;
+  width: 250px;
+}
+.friends_icon {
+  width: 50px;
+  height: 50px;
+}
+.friend_list {
+  margin-bottom: 15px;
+  padding: 10px 40px;
+}
+.group_list {
+  padding-left: 40px;
+}
+.group_list:first-child {
+  padding-top: 10px;
+}
+.group_list:last-child {
+  padding-bottom: 20px;
+}
+#group_tab {
+  background-color: #e9f7fc;
+}
+#friend_tab {
+  background-color: #e9f7fc;
 }
