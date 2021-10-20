@@ -5,10 +5,7 @@
 html {
     font-size: 100%;
 }
-body {
-    color: rgb(117, 117, 117);
 
-}
 img {
     max-width: 100%;
     padding-bottom: 15px;
@@ -46,7 +43,7 @@ img {
     margin: 0 auto;  
     background-color: rgba(255, 240, 153, 0.5);
     padding-bottom: 200px;
-    border: dashed 2px gray;
+    border: dotted 10px orange;
 }
 .container {
     max-width: 400px;
@@ -63,6 +60,7 @@ img {
     padding-top: 40px;
     padding: 50px;
     padding-bottom: 30px;
+    color: rgb(191, 248, 248);
 }
 .site-header
 
