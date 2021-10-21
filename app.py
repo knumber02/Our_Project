@@ -1,81 +1,113 @@
-from flask import Flask,render_template
+from flask import Flask
+from flask import render_template, request, redirect
 import sqlite3
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
-from flask_httpauth import HTTPBasicAuth
+from enum import unique
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
+from flask_bootstrap import BOOTSTRAP_VERSION, Bootstrap
+
+from werkzeug.security import generate_password_hash, check_password_hash
+import os
+
+from datetime import datetime
+import pytz
 
 app = Flask(__name__)
-def create_app():
-    app = ...
-    # existing code omitted
 
-    from . import db
-    db.init_app(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SECRET_KEY'] = os.urandom(24)
+db = SQLAlchemy(app)
+bootstrap = Bootstrap(app)
 
-    return app
-def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-    return g.db
+class Users(UserMixin, db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(30), unique=True)
+    password = db.Column(db.String(12))
+    mail_address = db.Column(db.String(50), nullable=False, unique=True)
+    login_session = db.Column(db.Boolean)
+    icon_path = db.Column(db.String)
+    API_KEY = db.Column(db.Integer)
 
+class Groups(db.Model):
+    group_id = db.Column(db.Integer, primary_key=True)
+    registered_on = db.Column(db.DateTime)
+    user_id1 = db.Column(db.Integer, default='0')
+    user_id2 = db.Column(db.Integer, default='0')
+    user_id3 = db.Column(db.Integer, default='0')
+    user_id4 = db.Column(db.Integer, default='0')
+    user_id5 = db.Column(db.Integer, default='0')
 
-def close_db(e=None):
-    db = g.pop('db', None)
+class schedules(db.Model):
+    schedules_id = db.Column(db.Integer, primary_key=True)
+    event_name = db.Column(db.String, default='0')
+    started_at = db.Column(db.DateTime)
+    memo = db.Column(db.String, default='0')
+    is_deleted = db.Column(db.Boolean, default=False)
+    registerd_on = db.Column(db.DateTime)
+    group_id = db.Column(db.Integer)
 
-    if db is not None:
-        db.close()
+class Joins(db.Model):
+    join_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    schedule_id = db.Column(db.Integer)
+    is_joined = db.Column(db.Boolean, default=False)
 
+class Follows(db.Model):
+    follow_id = db.Column(db.Integer, primary_key=True)
+    follow_userId = db.Column(db.Integer)
+    follower_userId = db.Column(db.Integer)
 
-#
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
-# @app.route("/login", methods=["GET", "POST"])
-# def login():
-    # """Log user in"""
+@app.route('/', methods=['GET', 'POST'])
+@login_required
+def index():
+    if request.method == 'GET':
+        posts = Post.query.all()
+        return render_template('home.html', posts=posts)
 
-    # # Forget any user_id
-    # session.clear()
+@app.route('/register', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
 
-    # # User reached route via POST (as by submitting a form via POST)
-    # if request.method == "POST":
+        user = User(username=username, password=generate_password_hash(password, method='sha256'))
 
-    #     # Ensure username was submitted
-    #     if not request.form.get("Username"):
-    #         return apology("Must provide username", 403)
+        db.session.add(user)
+        db.session.commit()
+        return redirect('/login')
+    else:
+        return render_template('register.html')
 
-    #     # Ensure password was submitted
-    #     elif not request.form.get("Password"):
-    #         return apology("Must provide password", 403)
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
 
-    #     # Query database for username
-    #     user_rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("Username"))
-    #     pass_rows = 
-    #     # Query database for password
-    #     # rows = db.execute("SELECT * FROM passwords WHERE password = ?", request.form.get("Password"))
+        user = User.query.filter_by(username=username).first()
+        if check_password_hash(user.password, password):
+            login_user(user)
+            return redirect('/')
+    else:
+        return render_template('login.html')
 
-    #     # Ensure username exists and password is correct
-    #     if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-    #         return apology("invalid username and/or password", 403)
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/login')
 
-    #     # Remember which user has logged in
-    #     session["user_id"] = rows[0]["id"]
-
-    #     # Redirect user to home page
-    #     return redirect("/")
-
-    # # User reached route via GET (as by clicking a link or via redirect)
-    # else:
-    #     return render_template("login.html")
-
-
-
-
-#
 @app.route("/")
 def createHomePage():
     return render_template("home.html")
@@ -97,7 +129,7 @@ def createMyprofilePage():
     return render_template("mypage.html")
 
 @app.route("/register")
-def creaateRegisterPage():
+def createRegisterPage():
     return render_template("register.html")
 
 
