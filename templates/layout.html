@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Document{% endblock %}</title>
+    <link rel="stylesheet" href="../static/layout_css/style.css">
+    {% block css_link %}{% endblock %}
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body class="body">
+    <header class="site-header">
+        <div class="wrapper site-header_wrapper">
+            <div class="title">今日、ひま？</div>
+            <nav>
+                 <ul class="nav_wrapper">
+                    <div class="icon_container">
+                        <a href="{{url_for("createHomePage")}}" class="nav_item">
+                            <img src="../../static/home.png"　alt="ホーム"/>
+                        </a>
+                        <p id="profile_link">ホーム</p>
+                    </div>
+                    <div class="icon_container">
+                        <a href="{{url_for("createListPage")}}" class="nav_item">
+                            <img src="../static/people.png"  alt="友達リスト"/>
+                        </a>
+                        <p　id="list_link">友達リスト</p>
+                    </div>
+                    <div class="icon_container">
+                        <a href="{{url_for("createMyprofilePage")}}" class="nav_item">
+                            <img src="../static/user.png"　alt="プロフィール" id="profile_img">
+                        </a>
+                        <p id="profile_link">マイプロフィール</p>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>    
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

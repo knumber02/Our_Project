@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, url_for
 import sqlite3
 import click
 from flask import current_app, g
@@ -11,10 +11,10 @@ from flask_bootstrap import BOOTSTRAP_VERSION, Bootstrap
 
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-
 from datetime import datetime
 import pytz
-
+import sys
+sys.path.append("/Library/Frameworks/Python.framework/Versions/3.9/bin/python3")
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
@@ -68,12 +68,12 @@ class Follows(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/', methods=['GET', 'POST'])
-@login_required
-def index():
-    if request.method == 'GET':
-        posts = Post.query.all()
-        return render_template('home.html', posts=posts)
+# @app.route('/', methods=['GET', 'POST'])
+# @login_required
+# def index():
+#     if request.method == 'GET':
+#         posts = Post.query.all()
+#         return render_template('home.html', posts=posts)
 
 @app.route('/register', methods=['GET', 'POST'])
 def signup():
@@ -132,6 +132,6 @@ def createMyprofilePage():
 def createRegisterPage():
     return render_template("register.html")
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route("/layout")
+def test():
+    return render_template("layout.html")

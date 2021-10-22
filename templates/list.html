@@ -1,37 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/list_css/style.css">
-    <title>member&group list</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-  <header class="site-header">
-    <div class="wrapper site-header_wrapper">
-        <div class="title">今日、ひま？</div>
-        <nav>
-             <ul class="nav_wrapper">
-                <div class="icon_container">
-                    <a href="../home/home.html" target="blank" class="nav_item">
-                        <img src="../../static/home.png"  alt="友達リスト"/>
-                    </a>
-                    <p　id="list_link">ホーム</p>
-                </div>
-                <div class="icon_container">
-                    <a href="../mypage/mypage.html" target="blank" class="nav_item">
-                        <img src="../../static/user.png"　alt="プロフィール" id="profile_img">
-                    </a>
-                    <p id="profile_link">マイプロフィール</p>
-                </div>
-            </ul>
-        </nav>
-    </div>
-</header>
+{% extends "layout.html" %}
+{% block title %}List{% endblock %}
+{% block css_link %}<link rel="stylesheet" href="../static/list_css/style.css">{% endblock %}
+{% block content %}
+
 <main>
  <!-- タブ -->
  <div class="btn_container">
@@ -80,5 +51,4 @@ $(function() {
 </script>
 </main>
 
-</body>
-</html>
+{% endblock %}
