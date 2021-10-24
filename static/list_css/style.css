@@ -1,0 +1,105 @@
+
+
+.column {
+    height: 100vh;
+    width: 100%;
+    text-align:center;
+}
+.group {
+    background-color: rgb(249, 255, 166);
+    background-size: cover;
+}
+.friends {
+    background-color: rgb(184, 245, 184);
+    background-size: cover;
+}
+
+@media all and (min-width: 500px) {
+    .wrapper {
+      display: flex;
+    }
+}
+
+/* ナビゲーションCSS終わり */
+.btn_container {
+  max-width: 350px;
+  margin: 20px auto;
+  border: dotted 10px orange;
+  background-color: rgba(255, 240, 153, 0.5);
+  padding: 10px 25px;
+}
+.page_title {
+  position: relative;
+  background: #4eb3f7;
+  box-shadow: 0px 0px 0px 5px #4eb3f7;
+  border: dashed 2px white;
+  padding: 0.2em 0.5em;
+  color: #454545;
+  width: 250px;
+}
+.friends_icon {
+  width: 50px;
+  height: 50px;
+}
+.friend_list {
+  margin-bottom: 15px;
+  padding: 10px 40px;
+}
+.group_list {
+  padding-left: 40px;
+}
+.group_list:first-child {
+  padding-top: 10px;
+}
+.group_list:last-child {
+  padding-bottom: 20px;
+}
+#group_tab {
+  background-color: #e9f7fc;
+}
+#friend_tab {
+  background-color: #e9f7fc;
+}
+a.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+a.btn--orange {
+  color: #fff;
+  background-color: #eb6100;
+}
+
+a.btn--orange:hover {
+  color: #fff;
+  background: #f56500;
+}
+
+a.btn--shadow {
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+a.btn--circle {
+  border-radius: 50%;
+  line-height: 50px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}

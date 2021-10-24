@@ -1,0 +1,76 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/mypage_css/style.css">
+    <title>MyPage</title>
+</head> -->
+<!-- <body> -->
+    {% extends "layout.html" %}
+    {% block title %}Home{% endblock %}
+    {% block css_link %}<link rel="stylesheet" href="../static/mypage_css/style.css">{% endblock %}
+    {% block content %}
+
+    
+    <main>
+        <div class="profile_container" id="max_width">
+            <div class="picture">
+                <img src="../../static/people.png" alt="アイコン画像" width="200px" height="200px" title="">
+                <form class="adj_btn"><input type="button" id="openBtn" value="画像編集" class="btn btn-outline-dark"></form>
+            </div>
+            <div id="modal" class="modal">
+                <div class="modal_content">
+                    <input type="button" class="closeBtn" id="closeBtn" value="X">
+                    <h3 class="sentence">fileを選択してアイコン画像の変更をしてください。</h3>
+                    <div class="change_avatar">
+                        <input type="file" name="avatar" class="avatar">
+                        <input type="button" class=" changeBtn" value="変更">
+                    </div>
+                </div>
+            </div>
+            
+            <script src="modal.js"></script>
+            
+            <div class="user_info">
+                <div>
+                    <ul class="list">
+                        <li class="navbar navbar-light bg-light information">
+                            <form class="container-fluid">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">ユーザー名</span>
+                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                            </form>
+                        </li>
+                        <li class="navbar navbar-light bg-light information">
+                            <form class="container-fluid">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon2">メールアドレス</span>
+                                    <input type="text" class="form-control" placeholder="OOOOOO@gmail.com" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                            </form>
+                        </li>
+                        <li class="navbar navbar-light bg-light information">
+                            <form class="container-fluid">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon3">パスワード</span>
+                                    <input type="text" class="form-control" placeholder="**********" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                            </form>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-outline-dark adj_btn_li">変更</button>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <form action="/logout" method="POST" class="form">
+                        <button type="submit" class="btn btn-outline-dark adj_btn_logout">ログアウト</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock %}

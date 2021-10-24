@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="../static/login_css/style.css">
+    <title>Login</title>
 </head>
 <body>
     <div class="body">
@@ -13,24 +13,19 @@
         </header>
         <main>
             <div class="container">
-                <img class="profile_img" src="" alt="画像">
+                <img class="profile_img" src="../../static/smile.jpeg" alt="画像">
                 <div class="wrapper">
-                    <form class="form">
-                        <input id="text" type="text" placeholder="Username">
-                        <input id="password" type="password" placeholder="Password">
+                    <form action="/login" method="POST" class="form">
+                        <input name="username" id="text" type="text" placeholder="Username">
+                        <input name="password"id="password" type="password" placeholder="Password">
                         <button id="submit" type="submit" id="login_button">Login</button>
                     </form>
-                    <a href="./register.html" class="register">
+                    <a href="../register/register.html" class="register">
                         新規登録はこちら
                     </a>
                 </div>
-
-                
             </div>
         </main>
-        <footer>
-
-        </footer>
     </div>
 </body>
 </html>
