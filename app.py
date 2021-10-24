@@ -25,7 +25,7 @@ bootstrap = Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-class Users(UserMixin, db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), unique=True)
@@ -44,10 +44,11 @@ class Groups(db.Model):
     user_id4 = db.Column(db.Integer, default='0')
     user_id5 = db.Column(db.Integer, default='0')
 
-class schedules(db.Model):
+class Schedules(db.Model):
     schedules_id = db.Column(db.Integer, primary_key=True)
-    event_name = db.Column(db.String, default='0')
     started_at = db.Column(db.DateTime)
+    place = db.Column(db.String, default='0')
+    event_name = db.Column(db.String, default='0')
     memo = db.Column(db.String, default='0')
     is_deleted = db.Column(db.Boolean, default=False)
     registerd_on = db.Column(db.DateTime)
@@ -76,12 +77,13 @@ def load_user(user_id):
 #         return render_template('home.html', posts=posts)
 
 @app.route('/register', methods=['GET', 'POST'])
-def signup():
+def register():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        mailaddress = request.form.get('mail_address')
 
-        user = User(username=username, password=generate_password_hash(password, method='sha256'))
+        user = User(username=username, password=generate_password_hash(password, method='sha256'), mail_address=mailaddress)
 
         db.session.add(user)
         db.session.commit()
@@ -102,11 +104,28 @@ def login():
     else:
         return render_template('login.html')
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 @login_required
 def logout():
     logout_user()
     return redirect('/login')
+
+@app.route("/home", methods=['POST'])
+@login_required
+def addSchedule():
+    if request.method == 'POST':
+        date = request.form.get('date')
+        place = request.form.get('place')
+        event = request.form.get('event')
+        
+        schedule = Schedules(started_at=date, place=place, event_name=event)
+
+        db.session.add(schedule)
+        db.session.commit() 
+        return render_template("/home")
+    else:
+        return redirect('/home')
+
 
 @app.route("/")
 def createHomePage():

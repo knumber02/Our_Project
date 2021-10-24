@@ -14,11 +14,11 @@
         <main>
             <div class="container">
                 <div class="wrapper">
-                    <form class="form">
-                        <input id="text" type="text" placeholder="Username">
-                        <input id="password" type="password" placeholder="Password">
-                        <input id="password" type="password" placeholder="Confirm Password">
-                        <input id="mailaddress" type="password" placeholder="Mail address">
+                    <form action="/register" method="POST" class="form">
+                        <input name="username" id="text" type="text" placeholder="Username">
+                        <input name="password" id="password" type="password" placeholder="Password">
+                        <input name="confirm_password" id="password" type="password" placeholder="Confirm Password">
+                        <input name="mail_address" id="mailaddress" type="password" placeholder="Mail address">
                         <button id="submit" type="submit" id="register_button">Register</button>
                     </form>
                 </div>

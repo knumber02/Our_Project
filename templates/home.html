@@ -83,21 +83,23 @@
                 <div class="add_schedule">
                 
                 <div class="memo m-3">予定</div>
-                <button type="button" class="btn btn-outline-primary m-2">予定の追加</button>
-                <button type="button" class="btn btn-outline-secondary m-2">予定の削除</button></div>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">日時</span>
-                        <input type="text" class="form-control me-3" placeholder='"O月X日△時"' aria-label="date" aria-describedby="basic-addon1">
-                      </div>
-                      
+       
+                    <form action="/" method="POST" class="form">  
+                      <button type="submit" class="btn btn-outline-primary m-2">予定の追加</button>
+                    </form>
+                </div>
+                      <div class="date">日付を指定</div>
+                        <input type="datetime-local" name="date">                      
+
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">場所</span>
-                        <input type="text" class="form-control me-3" placeholder='"渋谷"' aria-label="place" aria-describedby="basic-addon1">
+                        <input name="place" type="text" class="form-control me-3" placeholder='"渋谷"' aria-label="place" aria-describedby="basic-addon1">
                       </div>
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">イベント</span>
-                        <input type="text" class="form-control me-3" placeholder='"カラオケ"' aria-label="event" aria-describedby="basic-addon1">
+                        <input name="event" type="text" class="form-control me-3" placeholder='"カラオケ"' aria-label="event" aria-describedby="basic-addon1">
                       </div>
+                    </form>
                       <li>参加：</li>
                     <button type="button" class="btn btn-info m-3">O</button>
                     <button type="button" class="btn btn-danger">X</button>
