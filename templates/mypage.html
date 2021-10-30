@@ -20,18 +20,10 @@
                 <img src="../../static/people.png" alt="アイコン画像" width="200px" height="200px" title="">
                 <form class="adj_btn"><input type="button" id="openBtn" value="画像編集" class="btn btn-outline-dark"></form>
             </div>
-            <div id="modal" class="modal">
-                <div class="modal_content">
-                    <input type="button" class="closeBtn" id="closeBtn" value="X">
-                    <h3 class="sentence">fileを選択してアイコン画像の変更をしてください。</h3>
-                    <div class="change_avatar">
-                        <input type="file" name="avatar" class="avatar">
-                        <input type="button" class=" changeBtn" value="変更">
-                    </div>
-                </div>
-            </div>
+        
+        
             
-            <script src="modal.js"></script>
+            
             
             <div class="user_info">
                 <div>
@@ -72,5 +64,16 @@
                 </div>
             </div>
         </div>
+        <div id="modal" class="modal">
+            <div class="modal_content">
+                <input type="button" class="closeBtn" id="closeBtn" value="X">
+                <h3 class="sentence">fileを選択してアイコン画像の変更をしてください。</h3>
+                <div class="change_avatar">
+                    <input type="file" name="avatar" class="avatar">
+                    <input type="button" class=" changeBtn" value="変更">
+                </div>
+            </div>
+        </div>
+        <script src="../static/mypage_css/modal.js"></script>
     </main>
     {% endblock %}
