@@ -13,8 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from datetime import datetime
 import pytz
-import sys
-sys.path.append("/Library/Frameworks/Python.framework/Versions/3.9/bin/python3")
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
