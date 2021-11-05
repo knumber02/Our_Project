@@ -12,6 +12,7 @@ flask-login = "*"
 flask-bootstrap = "*"
 pytz = "*"
 brew = "*"
+datetime = "*"
 
 [dev-packages]
 

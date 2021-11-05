@@ -8,10 +8,9 @@ from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
 from flask_bootstrap import BOOTSTRAP_VERSION, Bootstrap
-
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-from datetime import datetime
+import datetime
 import pytz
 
 app = Flask(__name__)
@@ -109,21 +108,23 @@ def logout():
     logout_user()
     return redirect('/login')
 
-@app.route("/home", methods=['POST'])
+@app.route("/", methods=['POST'])
 @login_required
 def addSchedule():
     if request.method == 'POST':
-        date = request.form.get('date')
+        date_tmp = request.form.get('date')
         place = request.form.get('place')
         event = request.form.get('event')
-        
+        print(date_tmp)
+        date =  datetime.datetime.strptime(date_tmp, '%Y-%m-%dT%H:%M')
+        print(date)
         schedule = Schedules(started_at=date, place=place, event_name=event)
 
         db.session.add(schedule)
         db.session.commit() 
-        return render_template("/home")
+        return render_template("home.html")
     else:
-        return redirect('/home')
+        return redirect('home.html')
 
 
 @app.route("/")
