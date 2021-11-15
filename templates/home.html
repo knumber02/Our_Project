@@ -77,6 +77,33 @@
                 </tbody>
               </table>
               </div>
+              
+              <div>
+                <div id="added_schedules"></div>
+              </div>
+            
+              <script>
+                 document.getElementById("added_schedules").innerHTML = function() {
+                   setTimeOut()
+                 }
+                 
+                 function setTimeOut(list_schedule){
+                   return newPromise(resolve => {
+                     setTimeOut(() => {
+                       document.getElementById("added_schedules").innerHTML
+                       resolve();
+                     }, 1000)
+                   })
+                 }
+                 async function popSchedule(){
+                   const result = await setTimeOut()
+                   return result
+                 }
+                 popSchedule.then(result => {
+                   console.log(result);
+                 })
+              </script>
+              
             </div>
             <div class="right_container">
              <div class="schedule">
@@ -84,10 +111,11 @@
                 
                 <div class="memo m-3">予定</div>
        
-                    <form action="/" method="POST" class="form">  
-                      <button type="submit" class="btn btn-outline-primary m-2">予定の追加</button>
-                    </form>
+                  
+                     
+                    
                 </div>
+                    <form action="/home" method="POST" class="form">
                       <div class="date">日付を指定</div>
                         <input type="datetime-local" name="date">                      
 
@@ -99,6 +127,7 @@
                         <span class="input-group-text" id="basic-addon1">イベント</span>
                         <input name="event" type="text" class="form-control me-3" placeholder='"カラオケ"' aria-label="event" aria-describedby="basic-addon1">
                       </div>
+                      <button type="submit" class="btn btn-outline-primary m-2">予定の追加</button>
                     </form>
                       <li>参加：</li>
                     <button type="button" class="btn btn-info m-3">O</button>
