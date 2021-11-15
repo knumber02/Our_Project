@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 import sqlite3
 import click
 from flask import current_app, g
@@ -12,6 +12,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import datetime
 import pytz
+from datetime import timedelta
+import json
 
 app = Flask(__name__)
 
@@ -22,6 +24,10 @@ bootstrap = Bootstrap(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = "login"
+
+app.secret_key = 'user'
+app.permanent_session_lifetime = timedelta(minutes=5) # -> 5分 #(days=5) -> 5日保存
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -89,26 +95,37 @@ def register():
     else:
         return render_template('register.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-
         user = User.query.filter_by(username=username).first()
+
         if check_password_hash(user.password, password):
+            user.login_session = True
+            db.session.commit()
+            # セッションにユーザーネームを保存
+            session["user"] = user.username
             login_user(user)
-            return redirect('/')
+            return redirect('/home')
     else:
+        if "user" in session:
+            return render_template("home.html")
         return render_template('login.html')
 
 @app.route('/logout', methods=['POST'])
 @login_required
 def logout():
+    username = session["user"]
+    user = User.query.filter_by(username=username).first()
+    user.login_session = False
+    db.session.commit()
+    session.pop("user", None)
     logout_user()
-    return redirect('/login')
+    return redirect('/')
 
-@app.route("/", methods=['POST'])
+@app.route("/home", methods=['POST'])
 @login_required
 def addSchedule():
     if request.method == 'POST':
@@ -125,13 +142,26 @@ def addSchedule():
         return render_template("home.html")
     else:
         return redirect('home.html')
-
-
-@app.route("/")
+@app.route("/mypage", methods=["GET", "POST"])
+@login_required
+def editMyProfile():
+    if request.method == "POST":
+        username = request.form.get("user_name")
+        mail_address = request.form.get("mail_address")
+        password = request.form.get("password")
+        icon = request.form.get("icon")
+        user = User(username=username, mail_address=mail_address, password=password, icon_path=icon)
+        db.session.add(user)
+        db.session.commit()
+        return render_template("mypage.html")
+    else:
+        return render_template("mypage.html")
+@app.route("/home")
+@login_required
 def createHomePage():
     return render_template("home.html")
 
-@app.route("/login")
+@app.route("/)
 def createLoginPage():
     return render_template("login.html")
 
@@ -144,13 +174,15 @@ def createFriendPage():
     return render_template("friend.html")
 
 @app.route("/mypage")
+@login_required
 def createMyprofilePage():
     return render_template("mypage.html")
 
 @app.route("/register")
+@login_required
 def createRegisterPage():
     return render_template("register.html")
 
-@app.route("/layout")
-def test():
-    return render_template("layout.html")
+
+if __name__ == "__main__":
+    app.run(debug=True,host='localhost',port=5000)

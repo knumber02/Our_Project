@@ -15,45 +15,43 @@
 
     
     <main>
+        <form action="/mypage" method="POST">
         <div class="profile_container" id="max_width">
+        
             <div class="picture">
                 <img src="../../static/people.png" alt="アイコン画像" width="200px" height="200px" title="">
                 <form class="adj_btn"><input type="button" id="openBtn" value="画像編集" class="btn btn-outline-dark"></form>
             </div>
-        
-        
-            
-            
-            
             <div class="user_info">
                 <div>
                     <ul class="list">
                         <li class="navbar navbar-light bg-light information">
-                            <form class="container-fluid">
+                            <div class="container-fluid">
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">ユーザー名</span>
-                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input name="uer_name" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+
                                 </div>
-                            </form>
+                            </div>
                         </li>
                         <li class="navbar navbar-light bg-light information">
-                            <form class="container-fluid">
+                            <div class="container-fluid">
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon2">メールアドレス</span>
-                                    <input type="text" class="form-control" placeholder="OOOOOO@gmail.com" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input name="mail_address" type="text" class="form-control" placeholder="OOOOOO@gmail.com" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
-                            </form>
+                            </div>
                         </li>
                         <li class="navbar navbar-light bg-light information">
-                            <form class="container-fluid">
-                                <div class="input-group">
+                            <div class="container-fluid" >
+                                <div  class="input-group">
                                     <span class="input-group-text" id="basic-addon3">パスワード</span>
-                                    <input type="text" class="form-control" placeholder="**********" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input name="password" type="text" class="form-control" placeholder="**********" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
-                            </form>
+                            </div>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-outline-dark adj_btn_li">変更</button>
+                            <button type="sumbit" class="btn btn-outline-dark adj_btn_li">変更</button>
                         </li>
                     </ul>
                 </div>
@@ -69,11 +67,13 @@
                 <input type="button" class="closeBtn" id="closeBtn" value="X">
                 <h3 class="sentence">fileを選択してアイコン画像の変更をしてください。</h3>
                 <div class="change_avatar">
-                    <input type="file" name="avatar" class="avatar">
-                    <input type="button" class=" changeBtn" value="変更">
+
+                    <input type="file" name="icon" class="avatar">
+                    <input type="submit" class=" changeBtn" value="変更">
                 </div>
             </div>
         </div>
+      </form>
         <script src="../static/mypage_css/modal.js"></script>
     </main>
     {% endblock %}
