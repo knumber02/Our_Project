@@ -62,7 +62,7 @@ margin-left: 20px;
     /* width: 500px; */
     width: 400px;
     /* モーダルウィンドウを画面真ん中に表示 */
-    margin: 140px 500px;
+    margin: 0px 130px;
     position: fixed;
   }
   

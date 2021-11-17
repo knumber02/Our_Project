@@ -13,12 +13,15 @@ import os
 import datetime
 import pytz
 from datetime import timedelta
-import json
+from werkzeug.utils import secure_filename
+import secrets
+from PIL import Image
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SECRET_KEY'] = os.urandom(24)
+
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 
@@ -28,6 +31,10 @@ login_manager.login_view = "login"
 
 app.secret_key = 'user'
 app.permanent_session_lifetime = timedelta(minutes=5) # -> 5分 #(days=5) -> 5日保存
+
+UPLOAD_FOLDER = './static/up'
+ALLOWED_EXTENSIONS = set(['.png', '.jpg', '.jpeg'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -69,6 +76,11 @@ class Follows(db.Model):
     follow_userId = db.Column(db.Integer)
     follower_userId = db.Column(db.Integer)
 
+# def allwed_file(filename):
+#     # .があるかどうかのチェックと、拡張子の確認
+#     # OKなら１、だめなら0
+#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -91,7 +103,7 @@ def register():
 
         db.session.add(user)
         db.session.commit()
-        return redirect('/login')
+        return redirect('/')
     else:
         return render_template('register.html')
 
@@ -105,8 +117,8 @@ def login():
         if check_password_hash(user.password, password):
             user.login_session = True
             db.session.commit()
-            # セッションにユーザーネームを保存
-            session["user"] = user.username
+            # セッションにユーザーidを保存
+            session["user"] = user.id
             login_user(user)
             return redirect('/home')
     else:
@@ -117,8 +129,8 @@ def login():
 @app.route('/logout', methods=['POST'])
 @login_required
 def logout():
-    username = session["user"]
-    user = User.query.filter_by(username=username).first()
+    id = session["user"]
+    user = User.query.filter_by(id=id).first()
     user.login_session = False
     db.session.commit()
     session.pop("user", None)
@@ -146,22 +158,42 @@ def addSchedule():
 @login_required
 def editMyProfile():
     if request.method == "POST":
-        username = request.form.get("user_name")
+        username = request.form.get("username")
         mail_address = request.form.get("mail_address")
         password = request.form.get("password")
-        icon = request.form.get("icon")
-        user = User(username=username, mail_address=mail_address, password=password, icon_path=icon)
+        # icon = request.form.get("icon")
+        file = request.files["uploadFile"]
+
+        id = session["user"]
+        user = User.query.filter_by(id=id).first()
+        if username:
+            user.username = username
+        if mail_address:
+            user.mail_address = mail_address
+        if password:
+            user.password = generate_password_hash(password, method='sha256')
+        if file:
+            user.icon_path = file.filename
+            # 縮小して保存
+            i = Image.open(file)
+            i.thumbnail((200, 200))
+             # ファイルの保存
+            i.save(os.path.join(UPLOAD_FOLDER, file.filename))
+        icon_path = user.icon_path
         db.session.add(user)
         db.session.commit()
-        return render_template("mypage.html")
+        return render_template("mypage.html", img_file=icon_path)
     else:
-        return render_template("mypage.html")
+        id = session["user"]
+        user = User.query.filter_by(id=id).first()
+        icon_path = user.icon_path
+        return render_template("mypage.html", img_file=icon_path)
 @app.route("/home")
 @login_required
 def createHomePage():
     return render_template("home.html")
 
-@app.route("/)
+@app.route("/")
 def createLoginPage():
     return render_template("login.html")
 
@@ -179,7 +211,6 @@ def createMyprofilePage():
     return render_template("mypage.html")
 
 @app.route("/register")
-@login_required
 def createRegisterPage():
     return render_template("register.html")
 

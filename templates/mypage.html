@@ -15,22 +15,21 @@
 
     
     <main>
-        <form action="/mypage" method="POST">
         <div class="profile_container" id="max_width">
-        
             <div class="picture">
-                <img src="../../static/people.png" alt="アイコン画像" width="200px" height="200px" title="">
+                <img src="../../static/up/{{ img_file }}" alt="アイコン画像" width="200px" height="200px" title="">
+                <div>{{filename}}</div>
                 <form class="adj_btn"><input type="button" id="openBtn" value="画像編集" class="btn btn-outline-dark"></form>
             </div>
             <div class="user_info">
                 <div>
+                    <form action="/mypage" method="POST" enctype="multipart/form-data">
                     <ul class="list">
                         <li class="navbar navbar-light bg-light information">
                             <div class="container-fluid">
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">ユーザー名</span>
-                                    <input name="uer_name" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-
+                                    <input name="username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                         </li>
@@ -54,6 +53,17 @@
                             <button type="sumbit" class="btn btn-outline-dark adj_btn_li">変更</button>
                         </li>
                     </ul>
+                    <div id="modal" class="modal">
+                        <div class="modal_content">
+                            <input type="button" class="closeBtn" id="closeBtn" value="X">
+                            <h3 class="sentence">fileを選択してアイコン画像の変更をしてください。</h3>
+                            <div class="change_avatar">
+                                 <input type="file" name="uploadFile" accept=".png, .jpg, .jpeg, .pdf" class="avatar">
+                                <input type="submit" class="changeBtn" value="アップロード" id="changeBtn" />
+                            </div>
+                        </div>
+                    </div>
+                    </form>
                 </div>
                 <div>
                     <form action="/logout" method="POST" class="form">
@@ -61,19 +71,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div id="modal" class="modal">
-            <div class="modal_content">
-                <input type="button" class="closeBtn" id="closeBtn" value="X">
-                <h3 class="sentence">fileを選択してアイコン画像の変更をしてください。</h3>
-                <div class="change_avatar">
-
-                    <input type="file" name="icon" class="avatar">
-                    <input type="submit" class=" changeBtn" value="変更">
-                </div>
-            </div>
-        </div>
-      </form>
+        </div> 
         <script src="../static/mypage_css/modal.js"></script>
+        <script src="../static/mypage_css/changeImg.js"></script>
     </main>
     {% endblock %}
