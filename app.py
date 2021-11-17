@@ -163,7 +163,7 @@ def editMyProfile():
         password = request.form.get("password")
         # icon = request.form.get("icon")
         file = request.files["uploadFile"]
-
+        filename = file.filename
         id = session["user"]
         user = User.query.filter_by(id=id).first()
         if username:
@@ -173,21 +173,25 @@ def editMyProfile():
         if password:
             user.password = generate_password_hash(password, method='sha256')
         if file:
-            user.icon_path = file.filename
+            user.icon_path = filename
             # 縮小して保存
             i = Image.open(file)
             i.thumbnail((200, 200))
              # ファイルの保存
-            i.save(os.path.join(UPLOAD_FOLDER, file.filename))
+            i.save(os.path.join(UPLOAD_FOLDER, filename))
         icon_path = user.icon_path
+        currentUsername = user.username
+        currentMail_address = user.mail_address
         db.session.add(user)
         db.session.commit()
-        return render_template("mypage.html", img_file=icon_path)
+        return render_template("mypage.html", img_file=icon_path, username=currentUsername, mail_address=currentMail_address)
     else:
         id = session["user"]
         user = User.query.filter_by(id=id).first()
         icon_path = user.icon_path
-        return render_template("mypage.html", img_file=icon_path)
+        username = user.username
+        mail_address = user.mail_address
+        return render_template("mypage.html", img_file=icon_path, username=username, mail_address=mail_address)
 @app.route("/home")
 @login_required
 def createHomePage():
