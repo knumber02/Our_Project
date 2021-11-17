@@ -119,3 +119,6 @@ margin-left: 20px;
 .adj_btn_logout {
     margin-left: 70%;
 }
+#picture {
+    border-radius: 50%;
+}

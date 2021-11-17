@@ -17,8 +17,9 @@
     <main>
         <div class="profile_container" id="max_width">
             <div class="picture">
-                <img src="../../static/up/{{ img_file }}" alt="アイコン画像" width="200px" height="200px" title="">
-                <div>{{filename}}</div>
+                <img src="../../static/up/{{ img_file }}" alt="アイコン画像" width="200px" height="200px" id="picture">
+                <div>ユーザー名: {{ username }}</div>
+                <div>メールアドレス: {{ mail_address }}</div>
                 <form class="adj_btn"><input type="button" id="openBtn" value="画像編集" class="btn btn-outline-dark"></form>
             </div>
             <div class="user_info">
@@ -73,6 +74,5 @@
             </div>
         </div> 
         <script src="../static/mypage_css/modal.js"></script>
-        <script src="../static/mypage_css/changeImg.js"></script>
     </main>
     {% endblock %}
