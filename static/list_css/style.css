@@ -22,11 +22,18 @@
 
 /* ナビゲーションCSS終わり */
 .btn_container {
-  max-width: 350px;
+  max-width: 400px;
   margin: 20px auto;
   border: dotted 10px orange;
   background-color: rgba(255, 240, 153, 0.5);
   padding: 10px 25px;
+}
+
+.register_friend {
+  text-align: right;
+}
+.register_friend > img{
+  cursor: pointer;
 }
 .page_title {
   position: relative;
@@ -43,7 +50,7 @@
 }
 .friend_list {
   margin-bottom: 15px;
-  padding: 10px 40px;
+  padding: 10px 0px;
 }
 .group_list {
   padding-left: 40px;
@@ -102,4 +109,141 @@ a.btn--circle {
   width: 50px;
   height: 50px;
   padding: 0;
+}
+.modal{
+  display: none;
+  background: rgba(0,0,0,0.5);
+  /* モーダルウィンドウの位置固定 */
+  position: relative;
+  /* 背景色を画面いっぱいにする */
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100%;  
+  margin: 0px;
+}
+
+.modal_content{
+  background: #fff;
+  height: 500px;
+  /* width: 500px; */
+  width: 400px;
+  /* モーダルウィンドウを画面真ん中に表示 */
+  margin: 100px 500px;
+  position: fixed;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.whole_container {
+  position: relative;
+}
+
+
+.sentence {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  z-index: 2;
+}
+
+
+.avatar {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+.changeBtn {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.friend_list_container {
+  position: absolute;
+  height: 70%;
+  width: 60%;
+  margin: 110px 70px;
+  background-color: #4eb3f7;
+  z-index: 1;
+}
+.my-checkbox {
+  display: block;
+  position: relative;
+  margin: 1em 0;
+  padding-left: 28px;
+  cursor: pointer;
+  user-select: none; /* テキストの選択を防ぐ */
+}
+
+/* inputは非表示にする */
+.my-checkbox input {
+  display: none;
+}
+
+/* □ */
+.checkmark {
+  position: absolute;
+  top: 0; /* 上からの位置 */
+  left: 0;
+  height: 22px; /* 大きさ */
+  width: 22px; /* 大きさ */
+  border: solid 2px #d4dae2; /* 線 */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+/* ✓ */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  left: 5px; /* チェックの位置 */
+  top: 1px; /* チェックの位置 */
+  width: 6px; /* チェックの大きさ */
+  height: 10px; /* チェックの大きさ */
+  border: solid #FFF;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0; /* 透明にしておく */
+}
+
+/* チェックが入ったときの□ */
+.my-checkbox input:checked + .checkmark {
+  background: orange; /* チェック時の色 */
+  border-color: orange; /* チェック時の色 */
+}
+
+/* チェックが入ったときの✓ */
+.my-checkbox input:checked + .checkmark:after {
+  opacity: 1;
+}
+.friend_modal {
+  display: none;
+  background: rgba(0,0,0,0.5);
+  /* モーダルウィンドウの位置固定 */
+  position: absolute;
+  /* 背景色を画面いっぱいにする */
+  top: -130px;
+  left: 0px;
+  height: 100vh;
+  width: 100%;  
+  margin: 0px;
+}
+.fried_modal_content {
+  background: #fff;
+  height: 300px;
+  /* width: 500px; */
+  width: 400px;
+  /* モーダルウィンドウを画面真ん中に表示 */
+  margin: 100px 500px;
+  position: fixed;
+  
+}
+#search_friend {
+  position: absolute;
+  bottom: 0px;
+  right: 160px;
+  cursor: pointer;
 }

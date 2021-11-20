@@ -4,51 +4,92 @@
 {% block content %}
 
 <main>
- <!-- タブ -->
- <div class="btn_container">
-  <div class="page_title m-3">グループ・友達リスト表示</div>
-  <div>
-  <ul class="nav nav-tabs center">
-    <li class="active">
-      <a href="#group_tab" data-target="#group_tab" data-toggle="tab">
-        <button class="btn btn-primary" id="group_button">グループ</button>
-      </a>
-    </li>
-    <li>
-      <a href="#friend_tab" data-target="#friend_tab" data-toggle="tab">
-        <button class="btn btn-primary">友達</button>
-      </a>
-    </li>
-  </ul>
-</div>
-
-<!-- 各タブのなかみ -->
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane active fade in" id="group_tab">
-     <li class="group_list">グループ 人数</li>
-     <li class="group_list">グループ 人数</li>
-     <li class="group_list">グループ 人数</li>
+  <div class="whole_container">
+      <!-- タブ -->
+    <div class="btn_container">
+        <div class="page_title m-3">グループ・友達リスト表示</div>
+        <div class="register_friend"><img src="../static/icon_135120_32.png" alt="" href="#" id="registerBtn">友達追加</div>
+        
+        <div>
+            <ul class="nav nav-tabs center">
+              <li class="active">
+                <a href="#group_tab" data-target="#group_tab" data-toggle="tab">
+                  <button class="btn btn-primary" id="group_button">グループ</button>
+                </a>
+              </li>
+              <li>
+                <a href="#friend_tab" data-target="#friend_tab" data-toggle="tab">
+                  <button class="btn btn-primary">友達</button>
+                </a>
+              </li>
+            </ul>
+        </div>
+        
+        <!-- 各タブのなかみ -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade in" id="group_tab">
+              <li class="group_list">グループ 人数</li>
+              <li class="group_list">グループ 人数</li>
+              <li class="group_list">グループ 人数</li>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="friend_tab">
+              <ul>
+                <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
+                <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
+                <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
+              </ul>
+            </div>
+        </div>
+        <a href="#" class="btn btn--orange btn--circle btn--circle-a btn--shadow" id="openBtn">＋</a>
+        <div>グループ作成</div>
+      </div>
+      <!-- #グループ作成のモーダルの中身 -->
+    <div id="modal" class="modal">
+        <div class="modal_content">
+            <input type="button" class="closeBtn" id="closeBtn" value="X">
+            <h3 class="sentence">友達を選択してグループを作成してください。</h3>
+            <div class="friend_list_container">
+              <ul>
+              {% for friend in friends %} 
+              <li class="friend_list">
+                <label class="my-checkbox">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                   {{ friend }} <img src="../../static/user.png" alt="アイコン" class="friends_icon">
+                </label></li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="change_avatar">
+                <input type="text" name="" placeholder="グループ名" class="avatar" required="required">
+                <input type="submit" class="changeBtn" value="作成" id="changeBtn" />
+            </div>
+        </div>
+    </div>
+    <!-- 友達追加のモーダルの中身 -->
+    <div id="friend_modal" class="friend_modal">
+      <div class="modal_content">
+          <input type="button" class="closeBtn" id="friend_closeBtn" value="X">
+          <h3 class="sentence">友達のメールアドレスを入力して検索してください。</h3>
+          <div>
+              <input type="text" name="" placeholder="友達のメールアドレス" class="avatar" required="required">
+              <img src="../static/icon_156880_32.png" alt="" id="search_friend">
+              <input type="submit" class="changeBtn" value="追加" id="changeBtn" />
+          </div>
+      </div>
   </div>
-  <div role="tabpanel" class="tab-pane fade in" id="friend_tab">
-    <ul>
-      <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
-      <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
-      <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
-    </ul>
-  </div>
-</div>
-<a href="#" class="btn btn--orange btn--circle btn--circle-a btn--shadow">＋</a>
-</div>
+    <!-- jQuery -->
+    <script>
 
-<!-- jQuery -->
-<script>
-$(function() {
-  // ボタンクリックでタブを切り替え
-  $('#change-to-access-tab').click(function(e) {
-    $('.nav-tabs a[href="#access"]').tab('show');
-  });    
-});
-</script>
+    $(function() {
+      // ボタンクリックでタブを切り替え
+      $('#change-to-access-tab').click(function(e) {
+        $('.nav-tabs a[href="#access"]').tab('show');
+      });    
+    });
+    </script>
+    <script src="../static/list_css/modal.js"></script>
+  </div>
 </main>
 
 {% endblock %}

@@ -16,6 +16,7 @@ from datetime import timedelta
 from werkzeug.utils import secure_filename
 import secrets
 from PIL import Image
+import datetime
 
 app = Flask(__name__)
 
@@ -48,6 +49,7 @@ class User(UserMixin, db.Model):
 
 class Groups(db.Model):
     group_id = db.Column(db.Integer, primary_key=True)
+    group_name = db.Column(db.String(12))
     registered_on = db.Column(db.DateTime)
     user_id1 = db.Column(db.Integer, default='0')
     user_id2 = db.Column(db.Integer, default='0')
@@ -141,19 +143,31 @@ def logout():
 @login_required
 def addSchedule():
     if request.method == 'POST':
+        group = request.form.get("group")
         date_tmp = request.form.get('date')
         place = request.form.get('place')
         event = request.form.get('event')
-        print(date_tmp)
         date =  datetime.datetime.strptime(date_tmp, '%Y-%m-%dT%H:%M')
-        print(date)
-        schedule = Schedules(started_at=date, place=place, event_name=event)
+        schedule = Schedules.query.filter_by(group_id=group).first()
+        if date:
+            schedule.registerd_on = date
+        if place:
+            schedule.place = place
+        if event:
+            schedule.event = event
 
+        #セッションにスケジュール情報を入力
+        # session["schedule"] = schedule.schedules_id
+        eventName = schedule.event_name
         db.session.add(schedule)
         db.session.commit() 
-        return render_template("home.html")
+        return render_template("home.html", event_name=eventName)
     else:
-        return redirect('home.html')
+        # schedule_id = session["schedule"]
+        # schedule = Schedules.query.filter_by(schedule_id=schedule_id).first()
+        # eventName = schedule.event_name
+
+        return render_template('home.html', event_name=eventName)
 @app.route("/mypage", methods=["GET", "POST"])
 @login_required
 def editMyProfile():
@@ -192,6 +206,21 @@ def editMyProfile():
         username = user.username
         mail_address = user.mail_address
         return render_template("mypage.html", img_file=icon_path, username=username, mail_address=mail_address)
+
+@app.route("/list", methods=["GET", "POST"])
+@login_required
+def createGroup():
+    if request.method == "POST":
+        group_name = request.get.form("group")
+        date = datetime.datetime.today()
+        id = session["user"]
+        follow = Follows.query.filter_by(follow_userId=id)
+        friends = follow.follower_userId
+        group = Groups.query.filter_by(group_name=group_name, registerd_on=date, )
+        return render_template("list.html", friends)
+    else:
+        return render_template("list.html")
+
 @app.route("/home")
 @login_required
 def createHomePage():
