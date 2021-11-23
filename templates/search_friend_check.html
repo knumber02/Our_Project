@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block css_link %}<link rel="stylesheet" href="../static/search_friend_css/style.css">{% endblock %}
+{% block content %}
+<main>
+    <div>
+        <form action="/search_friend/check" method="POST">
+            <h3 class="sentence">この友達を追加しますか？</h3>
+            <img src="../../static/up/{{ searched_friend_icon }}" alt="アイコン画像" width="200px" height="200px" id="picture"></div>
+            <div>{{ searched_friend_username }}</div>
+            <button type="submit" class="changeBtn" id="friend_changeBtn">追加</button>
+        </form>
+    <div>
+</main>
+{% endblock %}
