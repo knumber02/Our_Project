@@ -4,13 +4,14 @@
   {% block css_link %}<link rel="stylesheet" href="../static/home_css/style.css">{% endblock %}
   {% block content %}
     <main class="body">
+      <form action="/home" method="POST" class="form">
         <div class="whole_container">
            <div class="left_container">
              <div class="group">
                 <div class="dropdown">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                      選択してください
-                    </button>
+                    <input name="group" class="btn btn-info dropdown-toggle" type="sumbit" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                      グループを選択してください
+                    </input>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <li><a class="dropdown-item" href="#">グループ1</a></li>
                       <li><a class="dropdown-item" href="#">グループ2</a></li>
@@ -79,31 +80,8 @@
               </div>
               
               <div>
-                <div id="added_schedules"></div>
+                <div id="added_schedules">{{ event_name }}</div>
               </div>
-            
-              <script>
-                 document.getElementById("added_schedules").innerHTML = function() {
-                   setTimeOut()
-                 }
-                 
-                 function setTimeOut(list_schedule){
-                   return newPromise(resolve => {
-                     setTimeOut(() => {
-                       document.getElementById("added_schedules").innerHTML
-                       resolve();
-                     }, 1000)
-                   })
-                 }
-                 async function popSchedule(){
-                   const result = await setTimeOut()
-                   return result
-                 }
-                 popSchedule.then(result => {
-                   console.log(result);
-                 })
-              </script>
-              
             </div>
             <div class="right_container">
              <div class="schedule">
@@ -115,7 +93,7 @@
                      
                     
                 </div>
-                    <form action="/home" method="POST" class="form">
+                    <!-- <form action="/home" method="POST" class="form"> -->
                       <div class="date">日付を指定</div>
                         <input type="datetime-local" name="date">                      
 
@@ -128,7 +106,7 @@
                         <input name="event" type="text" class="form-control me-3" placeholder='"カラオケ"' aria-label="event" aria-describedby="basic-addon1">
                       </div>
                       <button type="submit" class="btn btn-outline-primary m-2">予定の追加</button>
-                    </form>
+                    <!-- </form> -->
                       <li>参加：</li>
                     <button type="button" class="btn btn-info m-3">O</button>
                     <button type="button" class="btn btn-danger">X</button>
@@ -160,8 +138,9 @@
                   </div>
                 </div>
             </div>
-          </div>
-        </div>
+          </div>  
+      </div>
+      </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   {% endblock %}
