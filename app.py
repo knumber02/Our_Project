@@ -250,8 +250,14 @@ def search_friend():
         searched_friend = User.query.filter_by(mail_address=searched_friend_mail).first()
         searched_friend_icon = searched_friend.icon_path
         searched_friend_username = searched_friend.username
-        session["friend"] = searched_friend.id
-        return render_template("search_friend_check.html", searched_friend_username=searched_friend_username, searched_friend_icon=searched_friend_icon)
+        searched_friend_id = searched_friend.id
+        session["friend"] = searched_friend_id
+        follow_check = Follows.query.filter_by(follow_userId=id, follower_userId=searched_friend_id).first()
+        if follow_check:
+            error_message = "この友達はすでに追加されています"
+            return render_template("search_friend_check.html", error_message=error_message, searched_friend_username=searched_friend_username, searched_friend_icon=searched_friend_icon)
+        else:
+            return render_template("search_friend_check.html", searched_friend_username=searched_friend_username, searched_friend_icon=searched_friend_icon)
     else:
         return render_template("search_friend.html")
 @app.route("/search_friend/check", methods=["POST", "GET"])
