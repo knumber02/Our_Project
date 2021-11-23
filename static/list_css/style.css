@@ -34,6 +34,7 @@
 }
 .register_friend > img{
   cursor: pointer;
+  text-align: right;
 }
 .page_title {
   position: relative;

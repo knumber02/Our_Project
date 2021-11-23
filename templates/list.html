@@ -8,7 +8,9 @@
       <!-- タブ -->
     <div class="btn_container">
         <div class="page_title m-3">グループ・友達リスト表示</div>
-        <div class="register_friend"><img src="../static/icon_135120_32.png" alt="" href="#" id="registerBtn">友達追加</div>
+        <div class="register_friend">
+         <a  href="{{url_for("createSearchFriendPage")}}"><img src="../static/icon_135120_32.png" alt=""  id="registerBtn"></a>友達追加
+        </div>
         
         <div>
             <ul class="nav nav-tabs center">
@@ -24,7 +26,7 @@
               </li>
             </ul>
         </div>
-        
+
         <!-- 各タブのなかみ -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active fade in" id="group_tab">
@@ -44,6 +46,7 @@
         <div>グループ作成</div>
       </div>
       <!-- #グループ作成のモーダルの中身 -->
+    <form action="/list" method="POST" class="form">
     <div id="modal" class="modal">
         <div class="modal_content">
             <input type="button" class="closeBtn" id="closeBtn" value="X">
@@ -55,13 +58,13 @@
                 <label class="my-checkbox">
                   <input type="checkbox">
                   <span class="checkmark"></span>
-                   {{ friend }} <img src="../../static/user.png" alt="アイコン" class="friends_icon">
+                   {{ friend.username }} <img src="../../static/up/{{ friend.icon_path }}" alt="アイコン" class="friends_icon">
                 </label></li>
                 {% endfor %}
               </ul>
             </div>
             <div class="change_avatar">
-                <input type="text" name="" placeholder="グループ名" class="avatar" required="required">
+                <input type="text" name="group" placeholder="グループ名" class="avatar" required="required">
                 <input type="submit" class="changeBtn" value="作成" id="changeBtn" />
             </div>
         </div>
@@ -69,15 +72,21 @@
     <!-- 友達追加のモーダルの中身 -->
     <div id="friend_modal" class="friend_modal">
       <div class="modal_content">
+        <div>{{ searched_friend_icon }}</div>
+        <div>{{ searched_friend_username }}</div>
           <input type="button" class="closeBtn" id="friend_closeBtn" value="X">
           <h3 class="sentence">友達のメールアドレスを入力して検索してください。</h3>
           <div>
-              <input type="text" name="" placeholder="友達のメールアドレス" class="avatar" required="required">
-              <img src="../static/icon_156880_32.png" alt="" id="search_friend">
-              <input type="submit" class="changeBtn" value="追加" id="changeBtn" />
+              <input type="text" name="friend_mail" placeholder="友達のメールアドレス" class="avatar" required="required">
+              <a>
+                <img src="../static/icon_156880_32.png" alt="" id="search_friend">
+              </a>
+              <input type="submit" class="changeBtn" value="追加" id="friend_changeBtn" />
           </div>
       </div>
+      </form>
   </div>
+
     <!-- jQuery -->
     <script>
 
