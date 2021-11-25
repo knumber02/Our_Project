@@ -228,16 +228,22 @@ def createGroup():
     if request.method == "POST":
         group_name = request.form.get("group")
         date = datetime.datetime.today()
-        id = session["user"]
-        # フォローテーブルからユーザーのフォローしている友達全員の情報を取る
-        user_follow = Follows.query.filter_by(follow_userId=id)
-        # follow_userId = user_follow.follower_userId
-        # friends = User.query.filter_by(id=friends_id)
-        # group = Groups.query.filter_by(
-        #     group_name=group_name, registerd_on=date, )
+       
+        group = Groups.query.filter_by(group_name=group_name, registerd_on=date, )
         return render_template("list.html", )
     else:
-        return render_template("list.html",)
+        id = session["user"]
+        # フォローテーブルからユーザーのフォローしている友達全員の情報を取る
+        follow_users = Follows.query.filter_by(follow_userId=id).all()
+        #友達が１人でもいる場合
+        if follow_users:
+            arrFriends = []
+            for follow_user in follow_users:
+                follow_user_info = User.query.filter_by(id=follow_user.follower_userId).first()
+                arrFriends.append(follow_user_info)
+            return render_template("list.html",friends=arrFriends)
+        else:
+            return render_template("list.html")
 
 
 @app.route("/search_friend", methods=["GET", "POST"])

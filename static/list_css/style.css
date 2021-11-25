@@ -126,7 +126,7 @@ a.btn--circle {
 
 .modal_content{
   background: #fff;
-  height: 500px;
+  min-height: 500px;
   /* width: 500px; */
   width: 400px;
   /* モーダルウィンドウを画面真ん中に表示 */
@@ -241,6 +241,11 @@ a.btn--circle {
   margin: 100px 500px;
   position: fixed;
   
+}
+.friend_icon {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }
 #search_friend {
   position: absolute;
