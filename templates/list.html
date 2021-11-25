@@ -26,27 +26,28 @@
               </li>
             </ul>
         </div>
-
+        
         <!-- 各タブのなかみ -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active fade in" id="group_tab">
-              <li class="group_list">グループ 人数</li>
-              <li class="group_list">グループ 人数</li>
-              <li class="group_list">グループ 人数</li>
-            </div>
-            <div role="tabpanel" class="tab-pane fade in" id="friend_tab">
+          <div role="tabpanel" class="tab-pane active fade in" id="group_tab">
+            <li class="group_list">グループ 人数</li>
+            <li class="group_list">グループ 人数</li>
+            <li class="group_list">グループ 人数</li>
+          </div>
+          <div role="tabpanel" class="tab-pane fade in" id="friend_tab">
+              <form action="/list" method="GET" class="form">
               <ul>
-                <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
-                <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
-                <li class="friend_list">友達 <img src="../../static/user.png" alt="アイコン" class="friends_icon"></li>
+                {% for friend in friends %}
+                  <li class="friend_list"> {{ friend.username }} <img src="../static/up/{{ friend.icon_path }}" alt="" class="friend_icon"></li>
+                {% endfor %}
               </ul>
+              </form>
             </div>
         </div>
         <a href="#" class="btn btn--orange btn--circle btn--circle-a btn--shadow" id="openBtn">＋</a>
         <div>グループ作成</div>
       </div>
       <!-- #グループ作成のモーダルの中身 -->
-    <form action="/list" method="POST" class="form">
     <div id="modal" class="modal">
         <div class="modal_content">
             <input type="button" class="closeBtn" id="closeBtn" value="X">
@@ -58,7 +59,7 @@
                 <label class="my-checkbox">
                   <input type="checkbox">
                   <span class="checkmark"></span>
-                   {{ friend.username }} <img src="../../static/up/{{ friend.icon_path }}" alt="アイコン" class="friends_icon">
+                   {{ friend.username }} <img src="../../static/up/{{ friend.icon_path }}" alt="アイコン" class="friend_icon">
                 </label></li>
                 {% endfor %}
               </ul>
@@ -84,7 +85,7 @@
               <input type="submit" class="changeBtn" value="追加" id="friend_changeBtn" />
           </div>
       </div>
-      </form>
+      
   </div>
 
     <!-- jQuery -->
