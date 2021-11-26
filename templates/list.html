@@ -52,22 +52,24 @@
         <div class="modal_content">
             <input type="button" class="closeBtn" id="closeBtn" value="X">
             <h3 class="sentence">友達を選択してグループを作成してください。</h3>
-            <div class="friend_list_container">
-              <ul>
-              {% for friend in friends %} 
-              <li class="friend_list">
-                <label class="my-checkbox">
-                  <input type="checkbox">
-                  <span class="checkmark"></span>
-                   {{ friend.username }} <img src="../../static/up/{{ friend.icon_path }}" alt="アイコン" class="friend_icon">
-                </label></li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="change_avatar">
+            <form action="/list" method="POST">
+              <div class="friend_list_container">
+                <ul>
+                {% for friend in friends %} 
+                <li class="friend_list">
+                  <label class="my-checkbox">
+                    <input type="checkbox" name="checkboxes" value={{ friend.id }}>
+                    <span class="checkmark"></span>
+                      <div><img src="../../static/up/{{ friend.icon_path }}" alt="アイコン" class="friend_icon"> {{ friend.username }}</div>
+                  </label></li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="change_avatar">
                 <input type="text" name="group" placeholder="グループ名" class="avatar" required="required">
                 <input type="submit" class="changeBtn" value="作成" id="changeBtn" />
-            </div>
+              </div>
+            </form>
         </div>
     </div>
     <!-- 友達追加のモーダルの中身 -->
