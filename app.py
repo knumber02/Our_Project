@@ -18,6 +18,7 @@ import secrets
 from PIL import Image
 import datetime
 
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
@@ -42,7 +43,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(30), unique=True)
+    username = db.Column(db.String(30))
     password = db.Column(db.String(12))
     mail_address = db.Column(db.String(50), nullable=False, unique=True)
     login_session = db.Column(db.Boolean)
@@ -228,8 +229,23 @@ def createGroup():
     if request.method == "POST":
         group_name = request.form.get("group")
         date = datetime.datetime.today()
-       
-        group = Groups.query.filter_by(group_name=group_name, registerd_on=date, )
+        group = Groups(group_name=group_name, registered_on=date)
+        id = session["user"]
+        arrUser_id = request.form.getlist("checkboxes")
+        if len(arrUser_id) <= 4:
+            for user_id in arrUser_id:
+                # まず自分のidを入れる
+                group.user_id1 = id
+                if not group.user_id２:
+                    group.user_id２ = user_id
+                elif not group.user_id3:
+                    group.user_id3 = user_id
+                elif not group.user_id4:
+                    group.user_id4 = user_id
+                elif not group.user_id5:
+                    group.user_id5 = user_id
+        db.session.add(group)
+        db.session.commit()
         return render_template("list.html", )
     else:
         id = session["user"]
