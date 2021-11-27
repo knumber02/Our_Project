@@ -8,8 +8,15 @@
       <!-- タブ -->
     <div class="btn_container">
         <div class="page_title m-3">グループ・友達リスト表示</div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+           <div class="{{ category }} ">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="register_friend">
-         <a  href="{{url_for("createSearchFriendPage")}}"><img src="../static/icon_135120_32.png" alt=""  id="registerBtn"></a>友達追加
+         <a  href="{{url_for("createSearchFriendPage")}}"><img src="../static/icon_135120_32.png" alt=""  id="registerBtn"></a>追加
         </div>
         
         <div>
@@ -24,38 +31,42 @@
                   <button class="btn btn-primary">友達</button>
                 </a>
               </li>
+              <li class="openBtn">
+                <a href="#" class="btn btn--orange btn--circle btn--circle-a btn--shadow" id="openBtn"><div id="openBtnContent">+</div></a>
+                <div>作成</div>
+              </li>
             </ul>
         </div>
         
         <!-- 各タブのなかみ -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active fade in" id="group_tab">
-            <li class="group_list">グループ 人数</li>
-            <li class="group_list">グループ 人数</li>
-            <li class="group_list">グループ 人数</li>
+            {% for group in groups %}
+                <li class="group_list">グループ名:{{ group.group_name }}</li>
+            {% endfor %}
           </div>
           <div role="tabpanel" class="tab-pane fade in" id="friend_tab">
               <form action="/list" method="GET" class="form">
-              <ul>
-                {% for friend in friends %}
-                  <li class="friend_list"> {{ friend.username }} <img src="../static/up/{{ friend.icon_path }}" alt="" class="friend_icon"></li>
-                {% endfor %}
-              </ul>
+                <ul>
+                  {% for friend in friends %}
+                    <li class="friend_list"> {{ friend.username }} <img src="../static/up/{{ friend.icon_path }}" alt="" class="friend_icon"></li>
+                  {% endfor %}
+                </ul>
               </form>
             </div>
         </div>
-        <a href="#" class="btn btn--orange btn--circle btn--circle-a btn--shadow" id="openBtn">＋</a>
-        <div>グループ作成</div>
       </div>
       <!-- #グループ作成のモーダルの中身 -->
     <div id="modal" class="modal">
         <div class="modal_content">
             <input type="button" class="closeBtn" id="closeBtn" value="X">
-            <h3 class="sentence">友達を選択してグループを作成してください。</h3>
+            <div class="modal-header">
+              <h3 class="sentence">最大4人までの友達を選択してグループを作成してください。</h3>
+            </div>
             <form action="/list" method="POST">
               <div class="friend_list_container">
                 <ul>
-                {% for friend in friends %} 
+                  {% for friend in friends %} 
                 <li class="friend_list">
                   <label class="my-checkbox">
                     <input type="checkbox" name="checkboxes" value={{ friend.id }}>

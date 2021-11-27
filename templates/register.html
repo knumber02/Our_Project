@@ -15,11 +15,12 @@
             <div class="container">
                 <div class="wrapper">
                     <form action="/register" method="POST" class="form">
-                        <input name="username" id="text" type="text" placeholder="Username">
-                        <input name="password" id="password" type="password" placeholder="Password">
-                        <input name="confirm_password" id="password" type="password" placeholder="Confirm Password">
-                        <input name="mail_address" id="mailaddress" type="password" placeholder="Mail address">
+                        <input name="username" id="text" type="text" placeholder="Username" required="required">
+                        <input name="password" id="password" type="password" placeholder="Password" required="required">
+                        <input name="confirm_password" id="password" type="password" placeholder="Confirm Password" required="required">
+                        <input name="mail_address" id="mailaddress" type="password" placeholder="Mail address" required="required">
                         <button id="submit" type="submit" id="register_button">Register</button>
+                        <a href="{{url_for("createLoginPage")}}" class="login_page">ログイン画面に戻る</a>
                     </form>
                 </div>
             </div>
