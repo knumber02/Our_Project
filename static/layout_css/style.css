@@ -93,9 +93,17 @@ li {
         display: block;
         position: absolute;
         right: 1rem;
-        top: 1rem; } }
+        top: 1rem; } 
+    }
 
-
+.success {
+    background-color: yellowgreen;
+    color: white;
+}
+.failed {
+    background-color: deeppink;
+    color: white;
+}
 #profile_link {
     margin-top: 0px;
 }

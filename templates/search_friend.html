@@ -6,13 +6,18 @@
     <div class="whole_container">
         <div class="modal_content">
             <h3 class="sentence">友達のメールアドレスを入力して検索してください。</h3>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul class=flashes>
+                {% for category, message in messages %}
+                  <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
              <form action="/search_friend" method="POST">
                 <input type="text" name="friend_mail" placeholder="友達のメールアドレス" class="avatar" required="required">
-                <!-- <a href="{{url_for("search_friend")}}"> -->
                     <input type="image" src="../static/icon_156880_32.png" alt="" id="search_friend">
-                    <!-- <input type="submit" value="検索"> -->
-                   
-                <!-- </a> -->
              </form>
             </div>
         </div>

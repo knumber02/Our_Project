@@ -16,13 +16,20 @@
                 <img class="profile_img" src="../../static/smile.jpeg" alt="画像">
                 <div class="wrapper">
                     <form action="/" method="POST" class="form">
-                        <input name="username" id="text" type="text" placeholder="Username">
-                        <input name="password"id="password" type="password" placeholder="Password">
+                        <input name="username" id="text" type="text" placeholder="Username" required="required">
+                        <input name="password"id="password" type="password" placeholder="Password" required="required">
                         <button id="submit" type="submit" id="login_button">Login</button>
                     </form>
                     <a href="{{url_for("createRegisterPage")}}" class="register">
                         新規登録はこちら
                     </a>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
                 </div>
             </div>
         </main>

@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session , flash
 import sqlite3
 import click
 from flask import current_app, g
@@ -17,6 +17,7 @@ from werkzeug.utils import secure_filename
 import secrets
 from PIL import Image
 import datetime
+from sqlalchemy import or_
 
 
 app = Flask(__name__)
@@ -126,14 +127,20 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
-
-        if check_password_hash(user.password, password):
-            user.login_session = True
-            db.session.commit()
-            # セッションにユーザーidを保存
-            session["user"] = user.id
-            login_user(user)
-            return redirect('/home')
+        if user:
+            if check_password_hash(user.password, password):
+                user.login_session = True
+                db.session.commit()
+                # セッションにユーザーidを保存
+                session["user"] = user.id
+                login_user(user)
+                return redirect('/home')
+            else:
+                flash("パスワードが間違っています", "failed")
+                return render_template("login.html")
+        else:
+            flash("正しいユーザー名を入力してください", "failed")
+            return render_template("login.html")
     else:
         if "user" in session:
             return render_template("home.html")
@@ -213,6 +220,7 @@ def editMyProfile():
         currentMail_address = user.mail_address
         db.session.add(user)
         db.session.commit()
+        flash("変更しました!", "success")
         return render_template("mypage.html", img_file=icon_path, username=currentUsername, mail_address=currentMail_address)
     else:
         id = session["user"]
@@ -227,12 +235,24 @@ def editMyProfile():
 @login_required
 def createGroup():
     if request.method == "POST":
+        id = session["user"]
+        # フォローテーブルからユーザーのフォローしている友達全員の情報を取る
+        follow_users = Follows.query.filter_by(follow_userId=id).all()
+        joined_groups = Groups.query.filter(or_(Groups.user_id1==id, Groups.user_id2==id, Groups.user_id3==id, Groups.user_id4==id, Groups.user_id5==id)).all()
+        if follow_users:
+            arrFriends = []
+            for follow_user in follow_users:
+                follow_user_info = User.query.filter_by(id=follow_user.follower_userId).first()
+                arrFriends.append(follow_user_info)
         group_name = request.form.get("group")
+        if group_name == "":
+            flash("グループ名は必須です", "failed")
         date = datetime.datetime.today()
         group = Groups(group_name=group_name, registered_on=date)
         id = session["user"]
         arrUser_id = request.form.getlist("checkboxes")
-        if len(arrUser_id) <= 4:
+        #  自分含めて最大五人までのグループ作成
+        if len(arrUser_id) < 5 and len(arrUser_id) > 0:
             for user_id in arrUser_id:
                 # まず自分のidを入れる
                 group.user_id1 = id
@@ -244,22 +264,45 @@ def createGroup():
                     group.user_id4 = user_id
                 elif not group.user_id5:
                     group.user_id5 = user_id
-        db.session.add(group)
-        db.session.commit()
-        return render_template("list.html", )
+            db.session.add(group)
+            db.session.commit()
+            flash("成功しました!", "success")
+            #もう一度データベースから参加しているグループの情報を取る
+            joined_groups = Groups.query.filter(or_(Groups.user_id1==id, Groups.user_id2==id, Groups.user_id3==id, Groups.user_id4==id, Groups.user_id5==id)).all()
+            return render_template("list.html", friends=arrFriends, groups=joined_groups)
+        elif len(arrUser_id) == 0:
+            flash("失敗！１人以上の友達を選択してください","failed")
+            if joined_groups:
+                return render_template("list.html", friends=arrFriends, groups=joined_groups)
+            else:
+                return render_template("list.html", friends=arrFriends)
+        else:
+            flash("失敗！グループ人数は最大４名まで選べます", "failed")
+            if joined_groups:
+                return render_template("list.html", friends=arrFriends, groups=joined_groups)
+            else:
+                return render_template("list.html", friends=arrFriends)
     else:
         id = session["user"]
         # フォローテーブルからユーザーのフォローしている友達全員の情報を取る
         follow_users = Follows.query.filter_by(follow_userId=id).all()
+        joined_groups = Groups.query.filter(or_(Groups.user_id1==id, Groups.user_id2==id, Groups.user_id3==id, Groups.user_id4==id, Groups.user_id5==id)).all()
         #友達が１人でもいる場合
         if follow_users:
             arrFriends = []
             for follow_user in follow_users:
                 follow_user_info = User.query.filter_by(id=follow_user.follower_userId).first()
                 arrFriends.append(follow_user_info)
-            return render_template("list.html",friends=arrFriends)
+            #参加グループがひとつでもある場合
+            if joined_groups:
+                return render_template("list.html", groups=joined_groups, friends=arrFriends)
+            else:
+                return render_template("list.html", friends=arrFriends)
         else:
-            return render_template("list.html")
+            if joined_groups:
+                return render_template("list.html", groups=joined_groups)
+            else:
+                return render_template("list.html")
 
 
 @app.route("/search_friend", methods=["GET", "POST"])
@@ -270,16 +313,20 @@ def search_friend():
         id = session["user"]
         searched_friend_mail = request.form.get("friend_mail")
         searched_friend = User.query.filter_by(mail_address=searched_friend_mail).first()
-        searched_friend_icon = searched_friend.icon_path
-        searched_friend_username = searched_friend.username
-        searched_friend_id = searched_friend.id
-        session["friend"] = searched_friend_id
-        follow_check = Follows.query.filter_by(follow_userId=id, follower_userId=searched_friend_id).first()
-        if follow_check:
-            error_message = "この友達はすでに追加されています"
-            return render_template("search_friend_check.html", error_message=error_message, searched_friend_username=searched_friend_username, searched_friend_icon=searched_friend_icon)
+        if searched_friend:
+            searched_friend_icon = searched_friend.icon_path
+            searched_friend_username = searched_friend.username
+            searched_friend_id = searched_friend.id
+            session["friend"] = searched_friend_id
+            follow_check = Follows.query.filter_by(follow_userId=id, follower_userId=searched_friend_id).first()
+            if follow_check:
+                error_message = "この友達はすでに追加されています"
+                return render_template("search_friend_check.html", error_message=error_message, searched_friend_username=searched_friend_username, searched_friend_icon=searched_friend_icon)
+            else:
+                return render_template("search_friend_check.html", searched_friend_username=searched_friend_username, searched_friend_icon=searched_friend_icon)
         else:
-            return render_template("search_friend_check.html", searched_friend_username=searched_friend_username, searched_friend_icon=searched_friend_icon)
+            flash("入力されたメールアドレスを登録しているユーザーはいません", "failed")
+            return render_template("search_friend.html")
     else:
         return render_template("search_friend.html")
 @app.route("/search_friend/check", methods=["POST", "GET"])
