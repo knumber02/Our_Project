@@ -14,8 +14,9 @@ pytz = "*"
 brew = "*"
 datetime = "*"
 pillow = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "2.7"
+python_version = "3.8.5"

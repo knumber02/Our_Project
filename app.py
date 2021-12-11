@@ -19,7 +19,6 @@ from PIL import Image
 import datetime
 from sqlalchemy import or_
 
-
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
@@ -155,39 +154,74 @@ def logout():
     user.login_session = False
     db.session.commit()
     session.pop("user", None)
+    session.pop("group", None)
     logout_user()
     return redirect('/')
 
 
-@app.route("/home", methods=['POST'])
+@app.route("/home", methods=['POST', "GET"])
 @login_required
 def addSchedule():
     if request.method == 'POST':
-        group = request.form.get("group")
+        id = session["user"]
+        joined_groups = Groups.query.filter(or_(Groups.user_id1==id, Groups.user_id2==id, Groups.user_id3==id, Groups.user_id4==id, Groups.user_id5==id)).all()
+        group_name = request.form.get("group")
         date_tmp = request.form.get('date')
         place = request.form.get('place')
         event = request.form.get('event')
-        date = datetime.datetime.strptime(date_tmp, '%Y-%m-%dT%H:%M')
-        schedule = Schedules.query.filter_by(group_id=group).first()
-        if date:
-            schedule.registerd_on = date
-        if place:
-            schedule.place = place
-        if event:
-            schedule.event = event
-
-        # セッションにスケジュール情報を入力
-        # session["schedule"] = schedule.schedules_id
-        eventName = schedule.event_name
-        db.session.add(schedule)
-        db.session.commit()
-        return render_template("home.html", event_name=eventName)
-    else:
-        # schedule_id = session["schedule"]
-        # schedule = Schedules.query.filter_by(schedule_id=schedule_id).first()
-        # eventName = schedule.event_name
-
-        return render_template('home.html', event_name=eventName)
+        if group_name:
+            session["group"] = group_name
+            group = Groups.query.filter_by(group_name=group_name).first()
+        else:
+            if "group"in session:
+                if date_tmp or place or event:
+                    group_name = session["group"]
+                    group = Groups.query.filter_by(group_name=group_name).first()
+                else:
+                    flash("グループを選択してください", "failed")
+                    return render_template("home.html", groups=joined_groups)
+            else:
+                flash("グループを選択してください", "failed")
+                return render_template("home.html", groups=joined_groups)
+        schedules = Schedules.query.filter_by(group_id=group.group_id).all()
+        if not schedules:
+            schedule = Schedules(group_id=group.group_id)
+            if date_tmp:
+                date = datetime.datetime.strptime(date_tmp, '%Y-%m-%dT%H:%M')
+                schedule.started_at = date
+            if place:
+                schedule.place = place
+            if event:
+                schedule.event_name = event
+                eventName = schedule.event_name
+            if date_tmp or place or event:
+                current_time = datetime.datetime.today()
+                schedule.registerd_on = current_time
+                db.session.add(schedule)
+                db.session.commit()
+                schedules = Schedules.query.filter_by(group_id=group.group_id).all()
+            return render_template("home.html", schedules=schedules, group_name=group_name, groups=joined_groups)
+        else:
+            schedule = Schedules(group_id=group.group_id)
+            if date_tmp:
+                date = datetime.datetime.strptime(date_tmp, '%Y-%m-%dT%H:%M')
+                schedule.started_at = date
+            if place:
+                schedule.place = place
+            if event:
+                schedule.event_name = event
+                eventName = schedule.event_name
+            if date_tmp or place or event:
+                current_time = datetime.datetime.today()
+                schedule.registerd_on = current_time
+                db.session.add(schedule)
+                db.session.commit()
+                schedules = Schedules.query.filter_by(group_id=group.group_id).all()
+            return render_template("home.html", schedules=schedules,  group_name=group_name, groups=joined_groups)
+    elif request.method == "GET":
+        id = session["user"]
+        joined_groups = Groups.query.filter(or_(Groups.user_id1==id, Groups.user_id2==id, Groups.user_id3==id, Groups.user_id4==id, Groups.user_id5==id)).all()
+        return render_template('home.html', groups=joined_groups)
 
 
 @app.route("/mypage", methods=["GET", "POST"])
