@@ -4,20 +4,35 @@
   {% block css_link %}<link rel="stylesheet" href="../static/home_css/style.css">{% endblock %}
   {% block content %}
     <main class="body">
-      <form action="/home" method="POST" class="form">
+      
         <div class="whole_container">
            <div class="left_container">
              <div class="group">
-                <div class="dropdown">
-                    <input name="group" class="btn btn-info dropdown-toggle" type="sumbit" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                      グループを選択してください
-                    </input>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <li><a class="dropdown-item" href="#">グループ1</a></li>
-                      <li><a class="dropdown-item" href="#">グループ2</a></li>
-                      <li><a class="dropdown-item" href="#">グループ3</a></li>
-                    </ul>
+               <div class="group_select">
+                  <div class="dropdown">
+                    <form action="/home" method="POST">
+                      <select name="group"  type="button" class="btn btn-primary dropdown-toggle"  id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" required >
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          {% for group in groups %}
+                          <option disabled selected style="display:none;">グループを選択してください</option>
+                          <option class="dropdown-item" href="#" value="{{ group.group_name }}" required>{{ group.group_name }}</option>
+                          {% endfor %}
+                        </ul>
+                      </select>
+                        <button type="submit" value="決定" onclick="clickButton()">決定</button>
+                    </form>
+                  </div> 
+                  {% if group_name %}   
+                  <div id="group_name" >グループ名: <span class="html_group_name">{{ group_name }}</span></div>
+                  {% endif %}
                 </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 <div class="group_member">
                     <a href="../friends/friend.html" target="blank">メンバー1</a>
                     <a href="">メンバー2</a>
@@ -80,10 +95,17 @@
               </div>
               
               <div>
-                <div id="added_schedules">{{ event_name }}</div>
+                  {% for schedule in schedules %}
+                   {% if schedule.event_name == null %}
+                     <div>まだスケジュールはありません</div>
+                   {% elif schedule.event_name %}
+                     <div id="added_schedules">{{ schedule.event_name }}</div>
+                   {% endif %}
+                  {% endfor %}
               </div>
             </div>
             <div class="right_container">
+            <form action="/home" method="POST">
              <div class="schedule">
                 <div class="add_schedule">
                 
@@ -99,9 +121,11 @@
                       </div>
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">イベント</span>
-                        <input name="event" type="text" class="form-control me-3" placeholder='"カラオケ"' aria-label="event" aria-describedby="basic-addon1">
+                        <input name="event" type="text" class="form-control me-3" placeholder='"カラオケ"' aria-label="event" aria-describedby="basic-addon1"
+                        required="required">
                       </div>
-                      <button type="submit" class="btn btn-outline-primary m-2">予定の追加</button>
+                        <button type="submit" class="btn btn-outline-primary m-2">予定の追加</button>
+                      
                     <!-- </form> -->
                       <li>参加：</li>
                     <button type="button" class="btn btn-info m-3">O</button>
@@ -133,10 +157,23 @@
                     </div>
                   </div>
                 </div>
-            </div>
+              </div>
+            </form>
           </div>  
       </div>
-      </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+      $(function(){
+          $('.dropdown-menu .dropdown-item').click(function(){
+              var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
+              visibleItem.text($(this).attr('value'));
+          });
+      });
+      function display(){
+        let result = document.getElementById("added_schedules").value;
+        console.log(result)
+      }
+      display();
+    </script>
   {% endblock %}

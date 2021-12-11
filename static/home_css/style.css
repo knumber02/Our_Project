@@ -99,3 +99,9 @@
     border: solid 1px currentColor;
     background-color: currentColor;
 }
+.group_select {
+    display: flex;
+}
+#group_name {
+    margin-left: 50px;
+}
