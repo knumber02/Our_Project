@@ -249,12 +249,16 @@ def editMyProfile():
             i.thumbnail((200, 200))
              # ファイルの保存
             i.save(os.path.join(UPLOAD_FOLDER, filename))
+        
+        if not username and not mail_address and not password and not file:
+            flash("入力してください", "failed")
+        else:
+            db.session.add(user)
+            db.session.commit()
+            flash("変更しました!", "success")
         icon_path = user.icon_path
         currentUsername = user.username
         currentMail_address = user.mail_address
-        db.session.add(user)
-        db.session.commit()
-        flash("変更しました!", "success")
         return render_template("mypage.html", img_file=icon_path, username=currentUsername, mail_address=currentMail_address)
     else:
         id = session["user"]
