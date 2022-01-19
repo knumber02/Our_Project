@@ -99,8 +99,8 @@
                    {% if schedule.event_name == null %}
                      <div>まだスケジュールはありません</div>
                    {% elif schedule.event_name %}
-                   <ul>
-                     <li id="added_schedules">{{ schedule.event_name }}</li>
+                   <ul　class="list list--3">
+                     <li>{{ schedule.event_name }}</li>
                    </ul>
                    {% endif %}
                   {% endfor %}
