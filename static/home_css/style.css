@@ -105,3 +105,6 @@
 #group_name {
     margin-left: 50px;
 }
+#scheduled_events {
+    width: 200px;
+}

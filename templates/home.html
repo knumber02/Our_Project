@@ -93,13 +93,15 @@
                 </tbody>
               </table>
               </div>
-              
+              <div class="memo m-3" id="scheduled_events">予定されているイベント</div>
               <div>
                   {% for schedule in schedules %}
                    {% if schedule.event_name == null %}
                      <div>まだスケジュールはありません</div>
                    {% elif schedule.event_name %}
-                     <div id="added_schedules">{{ schedule.event_name }}</div>
+                   <ul　class="list list--3">
+                     <li>{{ schedule.event_name }}</li>
+                   </ul>
                    {% endif %}
                   {% endfor %}
               </div>
